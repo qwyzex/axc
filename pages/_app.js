@@ -1,7 +1,7 @@
 import "../styles/globals.sass";
 
-function MyApp({ Component, pageProps }) {
+function AXC({ Component, pageProps }) {
     return <Component {...pageProps}></Component>;
 }
 
-export default MyApp;
+export default AXC;

@@ -1,10 +1,12 @@
 import Head from "next/head";
-import Link from "next/link";
-import Header from "../components/header";
+import Header from "../components/Header";
+import Buttons from "components/Buttons";
 
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import ChatRoom from "components/ChatRoom";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBtISRBT4Q1fw_knzSpX8-AjJZRWIFG3ok",
@@ -16,40 +18,35 @@ const firebaseConfig = {
     measurementId: "G-4R7SF64H5E",
 };
 
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+export const axcApp = initializeApp(firebaseConfig);
+export const auth = getAuth(axcApp);
+export const db = getFirestore(axcApp);
 
-const auth = getAuth(app);
-
-export default function Home() {
-    const user = false;
+export default function Index() {
+    const [user] = useAuthState(auth);
 
     return (
         <div>
             <Head>
                 <title>AXC</title>
-                <meta name="description" content="Attemp-X Chat App" />
+                <meta
+                    name="description"
+                    content="Attemp-X Chat App"
+                />
             </Head>
-
-            <Header>
-                <div>
-                    <button></button>
-                    <ul>
-                        <li>
-                            <Link href="/about">
-                                <a>About</a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="https://somewhere.idk">
-                                <a>Donate</a>
-                            </Link>
-                        </li>
-                        <li>{user ? <button>btn</button> : <span>no</span>}</li>
-                    </ul>
-                </div>
-            </Header>
-            <h1>Index Page</h1>
+            <Header />
+            <div>{user ? <ChatRoom /> : <Home />}</div>
         </div>
     );
 }
+
+export const Home = () => {
+    return (
+        <div>
+            <h1>AXC</h1>
+            <Buttons />
+        </div>
+    );
+};
+
+// export let openAppInfo = false;

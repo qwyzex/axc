@@ -1,0 +1,41 @@
+.container
+    padding: 1rem
+    border-radius: .3em
+
+    display: flex
+    flex-direction: column
+    gap: 1rem
+
+    > div
+        display: flex
+        gap: .5rem
+
+        &:not(:last-of-type)
+            flex-direction: column
+            
+
+        button
+            border: none
+            border-radius: .3em
+            outline-offset: 2px
+            padding: .4rem
+            border: 2px solid #00000000
+            transition: .2s ease
+
+        .confirm
+            background-color: var(--red)
+            color: #f5f5f5
+            filter: brightness(90%)
+
+            &:hover
+                filter: brightness(110%)
+            &:focus
+                outline: 2px solid orangered
+
+        .cancel
+            background-color: #f5f5f5
+
+            &:hover
+                background-color: #c4c4c4
+            &:focus
+                outline: 2px solid black
