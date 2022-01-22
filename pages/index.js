@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Header from "../components/Header";
-import Buttons from "components/Buttons";
+import Buttons from "../components/Buttons";
+import Landing from "../components/Landing"
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
@@ -35,7 +36,7 @@ export default function Index() {
                 />
             </Head>
             <Header />
-            <div>{user ? <ChatRoom /> : <Home />}</div>
+            <div>{user ? <ChatRoom /> : <Landing />}</div>
         </div>
     );
 }
