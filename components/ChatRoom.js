@@ -19,11 +19,7 @@ const ChatRoom = () => {
 
     const messagesRef = collection(db, "messages");
 
-    const q = query(
-        messagesRef,
-        orderBy("createdAt", "desc"),
-        limit(150)
-    );
+    const q = query(messagesRef, orderBy("createdAt", "desc"), limit(150));
 
     const [messages] = useCollectionData(q, { idField: "id" });
     const [formValue, setFormValue] = useState("");
@@ -44,11 +40,7 @@ const ChatRoom = () => {
 
     const SubmitButton = () => {
         return formValue === "" ? (
-            <button
-                type="submit"
-                className={styles.sendButton}
-                disabled
-            >
+            <button type="submit" className={styles.sendButton} disabled>
                 SEND
             </button>
         ) : (
@@ -72,10 +64,7 @@ const ChatRoom = () => {
                         />
                     ))}
             </section>
-            <form
-                onSubmit={sendMessage}
-                className={styles.messageForm}
-            >
+            <form onSubmit={sendMessage} className={styles.messageForm}>
                 <input
                     className={formValue === "" && styles.empty}
                     required
@@ -92,8 +81,7 @@ const ChatRoom = () => {
 
 const ChatMessage = (props) => {
     const { text, uid, photoURL, displayName } = props.message;
-    const messageClass =
-        uid === auth.currentUser.uid ? styles.sent : styles.received;
+    const messageClass = uid === auth.currentUser.uid ? styles.sent : styles.received;
 
     // delete function
     const messagesRef = collection(db, "messages");
@@ -101,14 +89,12 @@ const ChatMessage = (props) => {
     const [deleteConfirm, setDeleteConfirm] = useState(false);
 
     return (
-        <li
-            className={`message ${messageClass} ${styles.messageWrapper}`}
-        >
+        <li className={`message ${messageClass} ${styles.messageWrapper}`}>
             {deleteConfirm && (
                 <Confirmation
                     event={async () => await deleteDoc(docRef)}
-                    setState={setDeleteConfirm}
-                    state={deleteConfirm}
+                    setStateRef={setDeleteConfirm}
+                    stateRef={deleteConfirm}
                     title="Are you sure you want to delete the message?"
                     message="This action is permanent and can't be retrieved!"
                     confirmText="Yes, Delete"
@@ -121,17 +107,13 @@ const ChatMessage = (props) => {
                 className={styles.messageProfilePhoto}
             />
             <div className={styles.messageBody}>
-                <p className={styles.messageUsername}>
-                    {displayName}
-                </p>
+                <p className={styles.messageUsername}>{displayName}</p>
                 <p className={styles.messageText}>{text}</p>
                 {props.usrId === auth.currentUser.uid && (
                     <div className={styles.deleteButtonContainer}>
                         <button
                             className={styles.deleteMessageButton}
-                            onClick={() =>
-                                setDeleteConfirm(!deleteConfirm)
-                            }
+                            onClick={() => setDeleteConfirm(!deleteConfirm)}
                         ></button>
                     </div>
                 )}

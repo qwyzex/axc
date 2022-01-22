@@ -1,0 +1,57 @@
+.container 
+    --l: 50%
+    --initial: hsl(var(--color), 90%, calc( var(--l) - 8% ))
+    --hover: hsl(var(--color), 100%, calc( var(--l) + 4% ))
+    --click: hsl(var(--color), 100%, calc( var(--l) - 6% ))
+    --outline: hsl(var(--color), 90%, calc( var(--l) * 1.2 ))
+    --textlight: #f5f5f5
+    --textdark: #202020
+
+    display: flex
+    justify-content: center
+    align-items: center
+
+    text-decoration: none !important
+    padding: .5em
+    border-radius: .2em
+
+    outline-style: solid
+    transition: .3s ease
+
+    &.dark
+        color: var(--textdark)
+        &.invertHover
+            &:hover
+                color: var(--textlight)
+        &.invertClick
+            &:active
+                color: var(--textlight)
+    &.light
+        color: var(--textlight)
+        &.invertHover
+            &:hover
+                color: var(--textdark)
+        &.invertClick
+            &:active
+                color: var(--textdark)
+
+    &:not(.primary)
+        background-color: transparent !important
+        &:not(:hover)
+            outline-color: transparent !important
+        &:active
+            background-color: var(--initial) !important
+            
+    &.primary
+
+        &:not(:hover)
+            outline-color: transparent !important
+        &:not(:active)
+            outline-color: transparent !important
+            
+        &:hover
+            background-color: var(--hover) !important
+        &:active
+            background-color: var(--click) !important
+            outline-color: var(--outline) !important
+            

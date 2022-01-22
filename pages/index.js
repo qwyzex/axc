@@ -1,13 +1,15 @@
 import Head from "next/head";
 import Header from "../components/Header";
 import Buttons from "../components/Buttons";
-import Landing from "../components/Landing"
+import Landing from "../components/Landing";
+import ChatRoom from "components/ChatRoom";
+import { SpinnerDotted } from "spinners-react";
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import ChatRoom from "components/ChatRoom";
 import { getFirestore } from "firebase/firestore";
+import { useState, useEffect } from "react";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBtISRBT4Q1fw_knzSpX8-AjJZRWIFG3ok",
@@ -25,19 +27,38 @@ export const db = getFirestore(axcApp);
 
 export default function Index() {
     const [user] = useAuthState(auth);
+    const [firebaseData, setFirebaseData] = useState(false);
+
+    useEffect(() => {
+        if (auth != null) {
+            setTimeout(() => {
+                setFirebaseData(true);
+            }, 500);
+        }
+    }, []);
 
     return (
-        <div>
+        <>
             <Head>
                 <title>AXC</title>
-                <meta
-                    name="description"
-                    content="Attemp-X Chat App"
-                />
+                <meta name="description" content="Attemp-X Chat App" />
             </Head>
             <Header />
-            <div>{user ? <ChatRoom /> : <Landing />}</div>
-        </div>
+            <main
+                className={`mainRoot ${firebaseData && "fetchedRoot"} ${
+                    !user && "displayLanding"
+                }`}
+            >
+                {firebaseData ? user ? <ChatRoom /> : <Landing /> : null}
+                <SpinnerDotted
+                    color="#ff003c"
+                    thickness={150}
+                    size={75}
+                    speed={140}
+                    className="loadingSpinner"
+                />
+            </main>
+        </>
     );
 }
 

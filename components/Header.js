@@ -7,6 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import Buttons from "./Buttons";
 import AppInfo from "./AppInfo";
+import Confirmation from "./Confirmation";
 import {
     SVGAccount,
     SVGBug,
@@ -15,27 +16,34 @@ import {
     SVGLogIn,
     SVGLogOut,
     SVGMenu,
+    SVGTimeReverse,
 } from "./Svg";
 import AccountInfo from "./AccountInfo";
+import { signOut } from "firebase/auth";
+import Link from "next/link";
 
 export default function Header() {
     const [user] = useAuthState(auth);
     const [openAppInfo, setOpenAppInfo] = useState(false);
     const [openAccountInfo, setOpenAccountInfo] = useState(false);
+    const [confirmLogOut, setConfirmLogOut] = useState(false);
 
     const HeaderDropdown = () => {
         return (
             <div>
-                {openAppInfo && (
-                    <AppInfo
-                        close={() => setOpenAppInfo(!openAppInfo)}
-                    />
-                )}
+                {openAppInfo && <AppInfo close={() => setOpenAppInfo(!openAppInfo)} />}
                 {openAccountInfo && (
-                    <AccountInfo
-                        close={() =>
-                            setOpenAccountInfo(!openAccountInfo)
-                        }
+                    <AccountInfo close={() => setOpenAccountInfo(!openAccountInfo)} />
+                )}
+                {confirmLogOut && (
+                    <Confirmation
+                        title="Are You Sure You Want To Sign Out?"
+                        event={() => {
+                            signOut(auth);
+                            setConfirmLogOut(!confirmLogOut);
+                        }}
+                        setStateRef={setConfirmLogOut}
+                        stateRef={confirmLogOut}
                     />
                 )}
                 <div className={styles.headerDropdownWrapper}>
@@ -46,11 +54,7 @@ export default function Header() {
                         {user && (
                             <li className={styles.listItem}>
                                 <button
-                                    onClick={() =>
-                                        setOpenAccountInfo(
-                                            !openAccountInfo
-                                        )
-                                    }
+                                    onClick={() => setOpenAccountInfo(!openAccountInfo)}
                                 >
                                     <SVGAccount />
                                     Account
@@ -58,20 +62,24 @@ export default function Header() {
                             </li>
                         )}
                         <li className={styles.listItem}>
-                            <button
-                                onClick={() =>
-                                    setOpenAppInfo(!openAppInfo)
-                                }
-                            >
+                            <button onClick={() => setOpenAppInfo(!openAppInfo)}>
                                 <SVGInfo />
                                 About
                             </button>
                         </li>
-                        <li className={styles.listItem}>
+                        {/* <li className={styles.listItem}>
                             <a>
                                 <SVGDollar />
                                 Donate
                             </a>
+                        </li> */}
+                        <li className={styles.listItem}>
+                            <Link href="/changelog">
+                                <a>
+                                    <SVGTimeReverse />
+                                    Changelog
+                                </a>
+                            </Link>
                         </li>
                         <li className={styles.listItem}>
                             <a
@@ -86,13 +94,9 @@ export default function Header() {
                         <li className={styles.listItem}>
                             <Buttons
                                 className={styles.logOutButton}
-                                child={
-                                    user ? (
-                                        <SVGLogOut />
-                                    ) : (
-                                        <SVGLogIn />
-                                    )
-                                }
+                                child={user ? <SVGLogOut /> : <SVGLogIn />}
+                                setStateRef={setConfirmLogOut}
+                                stateRef={confirmLogOut}
                             />
                         </li>
                     </ul>
@@ -102,11 +106,11 @@ export default function Header() {
     };
 
     return (
-        <div className={styles.header}>
-            <div>
+        <header className={styles.header}>
+            <div className={styles.appName}>
                 <h1>AXC</h1>
             </div>
             <HeaderDropdown />
-        </div>
+        </header>
     );
 }

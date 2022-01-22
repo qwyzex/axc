@@ -1,24 +1,46 @@
 .button
     min-width: max-content
-    width: 100%
     border: none
     border-radius: .3rem
 
     display: flex
-    flex-direction: row
-    padding: .8em
+    justify-content: center
+    align-items: center
+    padding: .4em .8em
 
     color: #ffffff
     font-weight: 400
-    background-color: darken(tomato, 10%)
-    outline: 3px solid #00000000
+    line-height: 14px
+    outline: 2px solid #00000000
+    // outline-offset: 1px
     transition: .2s ease
 
-    &:hover
-        background-color: tomato
-        box-shadow: 0 6px 8px #20202030
+    &.col
+        flex-direction: column
+
+    > p
+        font-size: 1.1em
+    > span
+        font-size: .7em
+        font-weight: 400
+
+    &.login
+        background-color: darken(royalblue, 10%)
+        &:hover
+            background-color: var(--blue)
+            filter: brightness(110%)
+        &:active
+            outline: 2px solid darken(royalblue, 15%)
+
+    &.logout
+        background-color: darken(tomato, 10%)
+        &:hover
+            background-color: tomato
     &:active
-        outline: 3px solid orangered
+        outline: 2px solid var(--red)
+
+    &:hover
+        box-shadow: 0 3px 6px #20202030
 
     svg 
         filter: invert(100%)

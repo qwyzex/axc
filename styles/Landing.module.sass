@@ -1,0 +1,210 @@
+@media  ( max-width: 60rem )
+    .container
+        flex-direction: column
+        gap: 2rem
+
+@media ( min-width: 60rem )
+    .container
+        flex-direction: row
+        gap: 2rem
+
+        .changeLogContainer
+            margin-block-start: 6rem
+    
+.container
+    min-height: calc( 100vh - 5rem )
+    height: 100%
+    width: 100%
+
+    background-image: url('/images/background/abstract-10.jpg')
+    background-position: left -35rem bottom -10rem
+    padding: 2rem
+    display: flex
+
+    display: flex
+    position: relative
+    z-index: 3
+
+    &.animating
+        overflow-y: hidden !important
+
+    // &::before
+    //     content: ''
+    //     position: absolute
+    //     top: 0
+    //     left: 0
+        
+    //     height: 100%
+    //     width: 100%
+    //     // background-color: #ff003c
+    //     background: linear-gradient(135deg,#1cb99f, #0c85d6)//, url('/images/background/abstract-10.jpg')
+    //     // background-position: left -15rem bottom -10rem
+    //     opacity: 1
+    //     z-index: -1
+
+    //     backdrop-filter: blur(1rem)
+    //     -webkit-backdrop-filter: blur(1rem)
+
+    main
+        display: flex
+        flex-direction: column
+        gap: 1rem
+        width: 100%
+
+        .header
+            line-height: 2.2rem
+            height: 5rem
+
+            > h1
+                font-size: 4em
+                padding: .1em
+                width: max-content
+                
+                color: #ffffff
+                // color: transparent
+                // background: linear-gradient(90deg, orangered, #ff003c)
+                // background-clip: text
+                // -webkit-background-clip: text
+                // -moz-background-clip: text
+            > p
+                color: #ffffff
+
+        .body
+            display: flex
+            flex-direction: column
+            gap: 1rem
+
+            .texts
+                font-weight: 600
+                font-style: italic
+                color: #202020
+
+                position: relative
+                display: flex
+                flex-direction: column
+                gap: 1em
+
+                padding: 3rem 1em
+                border-radius: .3em
+                background-color: #f5f5f5e7
+
+                &::before
+                    content: '"'
+                    position: absolute
+                    top: -1rem
+                    left: .6rem
+                    font-size: 7rem
+                    opacity: .3
+                &::after
+                    content: '"'
+                    position: absolute
+                    bottom: -5.3rem
+                    right: 1.8rem
+                    font-size: 7rem
+                    opacity: .3
+
+                code
+                    color: #202020
+
+                > p
+                    &:first-of-type
+                        &::first-letter
+                            font-size: 2em
+                        
+
+            .buttonsWrapper
+                display: flex
+                gap: .7rem
+
+    .changeLogContainer
+        height: max-content
+        width: 30rem
+        
+        color: #f5f5f5
+        background: #10081380
+        border-radius: .5em
+        padding: 1rem
+
+        display: flex
+        flex-direction: column
+        gap: 1rem
+
+        backdrop-filter: blur(1rem)
+        -webkit-backdrop-filter: blur(1rem)
+
+        > div 
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            gap: .8rem
+
+            svg
+                filter: invert(100%)
+
+        ul
+            li
+                list-style: none
+                position: relative
+                color: #202020
+                background-color: #d4d4d4
+                padding: .5rem
+                border-radius: .3rem
+                outline: 4px solid #00000000
+                transition: .3s ease
+                cursor: pointer
+
+                &:hover
+                    filter: brightness(110%)
+                    box-shadow: 0 4px 7px var(--blue)
+                &:active
+                    outline: 4px solid #cccccc
+
+                display: flex
+                flex-direction: column
+
+                h3
+                    font-weight: 600
+                .changeLogDate
+                    color: grey
+                .changeLogDesc
+                    font-weight: 400
+
+                a
+                    span
+                        position: absolute
+                        top: 0
+                        left: 0
+                        width: 100%
+                        height: 100%
+
+        > a
+            width: 100%
+            padding: .8rem
+            border-radius: .3em
+
+            color: #202020
+            font-weight: 600
+            text-decoration: none
+
+            background-color: #f5f5f5
+            outline: 4px solid #00000000
+            position: relative
+            transition: .2s ease
+
+            span
+                &::after
+                    content: ">>"
+                    opacity: 0
+                    transition: .3s ease
+
+                    position: absolute
+                    right: 10%
+
+            &:hover
+                span
+                    &::after
+                        right: 5%
+                        opacity: 1
+
+            &:active
+                outline: 4px solid #cccccc

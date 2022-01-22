@@ -1,17 +1,32 @@
 @mixin listChild()
     justify-content: flex-start
     align-items: center
-    gap: .3em
-    
-    
+    gap: .8em
+        
 .header
     display: flex
     justify-content: space-between
     align-items: center
-    height: 5rem
 
+    height: 5rem
     padding: 1em
-    box-shadow: 0 -.15em 6px var(--shadow)
+    box-shadow: 0 .3em 15px #20202040
+
+    position: relative
+    z-index: 8
+
+    .appName
+        user-select: none
+        -moz-user-focus: none
+        -webkit-user-select: none
+
+    &::before
+        content: ''
+        position: absolute
+        top: 100%
+        left: 0
+        height: 0
+        width: 0
 
 .headerDropdownWrapper
     position: relative
@@ -80,30 +95,5 @@
             color: #202020
         
         .logOutButton
-            min-width: max-content
             width: 100%
-            border: none
-            border-radius: .3rem
-
-            display: flex
-            flex-direction: row
-            @include listChild()
-            padding: .8em
-
-            color: #ffffff
-            font-weight: 400
-            background-color: darken(tomato, 10%)
-            outline: 3px solid #00000000
-            transition: .2s ease
-
-            &:hover
-                background-color: tomato
-                box-shadow: 0 6px 8px #20202030
-            &:active
-                outline: 3px solid orangered
-
-            svg 
-                filter: invert(100%)
-
-
-// .headerDropdownButton
+            color: white
