@@ -42,6 +42,8 @@ export default function Index() {
             <Head>
                 <title>AXC</title>
                 <meta name="description" content="Attemp-X Chat App" />
+                <meta name="theme-color" content="light" />
+                <link rel="apple-touch-icon" href="/favicon.ico"></link>
             </Head>
             <Header />
             <main

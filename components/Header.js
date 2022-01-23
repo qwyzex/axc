@@ -42,12 +42,16 @@ export default function Header() {
                             signOut(auth);
                             setConfirmLogOut(!confirmLogOut);
                         }}
-                        setStateRef={setConfirmLogOut}
-                        stateRef={confirmLogOut}
+                        setStateRef={confirmLogOut ? setConfirmLogOut : null}
+                        stateRef={confirmLogOut ? confirmLogOut : null}
                     />
                 )}
                 <div className={styles.headerDropdownWrapper}>
-                    <button className={styles.headerDropdownButton}>
+                    <button
+                        className={styles.headerDropdownButton}
+                        name="dropdown-button"
+                        aria-label="dropdown-button"
+                    >
                         <SVGMenu />
                     </button>
                     <ul className={styles.listContainer}>

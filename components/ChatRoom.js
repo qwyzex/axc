@@ -52,7 +52,7 @@ const ChatRoom = () => {
 
     return (
         <div className={styles.chatRoom}>
-            <section className={styles.messageContainer}>
+            <ul className={styles.messageContainer}>
                 <span ref={scrollDummy}></span>
                 {messages &&
                     messages.map((msg) => (
@@ -63,7 +63,7 @@ const ChatRoom = () => {
                             msgId={msg.id}
                         />
                     ))}
-            </section>
+            </ul>
             <form onSubmit={sendMessage} className={styles.messageForm}>
                 <input
                     className={formValue === "" && styles.empty}
@@ -93,8 +93,8 @@ const ChatMessage = (props) => {
             {deleteConfirm && (
                 <Confirmation
                     event={async () => await deleteDoc(docRef)}
-                    setStateRef={setDeleteConfirm}
-                    stateRef={deleteConfirm}
+                    setStateRef={deleteConfirm ? setDeleteConfirm : null}
+                    stateRef={deleteConfirm ? deleteConfirm : null}
                     title="Are you sure you want to delete the message?"
                     message="This action is permanent and can't be retrieved!"
                     confirmText="Yes, Delete"
@@ -105,6 +105,8 @@ const ChatMessage = (props) => {
                 src={photoURL}
                 alt={`${displayName}'s Profile Picture`}
                 className={styles.messageProfilePhoto}
+                height={2.5 + "rem"}
+                width={2.5 + "rem"}
             />
             <div className={styles.messageBody}>
                 <p className={styles.messageUsername}>{displayName}</p>
