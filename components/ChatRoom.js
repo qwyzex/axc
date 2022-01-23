@@ -105,8 +105,8 @@ const ChatMessage = (props) => {
                 src={photoURL}
                 alt={`${displayName}'s Profile Picture`}
                 className={styles.messageProfilePhoto}
-                height={2.5 + "rem"}
-                width={2.5 + "rem"}
+                height={35}
+                width={35}
             />
             <div className={styles.messageBody}>
                 <p className={styles.messageUsername}>{displayName}</p>
