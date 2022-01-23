@@ -33,14 +33,14 @@
             box-shadow: 0 12px 24px #20202060
 
         > *
-            width: max-content
-
+            &:not(details)
+                width: max-content
+            
         details
             summary
                 cursor: pointer
             ul
                 padding-inline: 1rem
-                
                 li
                     list-style: none
                     p
