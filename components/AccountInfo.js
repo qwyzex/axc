@@ -1,13 +1,17 @@
-import { SVGClose } from "./Svg";
-import Overlay from "./Overlay";
+// import { SVGClose } from "./Svg";
 import styles from "../styles/AccountInfo.module.sass";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "pages";
-import Buttons from "./Buttons";
+import Confirmation from "./Confirmation";
 import CloseButton from "./CloseButton";
+import Overlay from "./Overlay";
+import Buttons from "./Buttons";
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useState } from "react";
+import { auth } from "pages";
 
 const AccountInfo = (props) => {
     const [user] = useAuthState(auth);
+    const [confirmLogOut, setConfirmLogOut] = useState(false);
 
     return (
         <>
@@ -30,9 +34,24 @@ const AccountInfo = (props) => {
                         <label className="cascade">email</label>
                         <p>{user.email}</p>
                     </div>
-                    <Buttons className={styles.logOutButton} />
+                    <Buttons
+                        className={styles.logOutButton}
+                        stateRef={confirmLogOut}
+                        setStateRef={setConfirmLogOut}
+                    />
                 </div>
             </div>
+            {confirmLogOut && (
+                <Confirmation
+                    title="Are You Sure You Want To Sign Out?"
+                    event={() => {
+                        signOut(auth);
+                        setConfirmLogOut(!confirmLogOut);
+                    }}
+                    setStateRef={setConfirmLogOut}
+                    stateRef={confirmLogOut}
+                />
+            )}
         </>
     );
 };

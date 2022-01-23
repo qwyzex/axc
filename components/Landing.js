@@ -1,17 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/Landing.module.sass";
 import AnchorButton from "./AnchorButton";
 import Buttons from "./Buttons";
 import { changelog } from "../data/changelogs";
-import Link from "next/link";
+// import Link from "next/link";
 import { SVGTimeReverse } from "./Svg";
+import { SpinnerDotted } from "spinners-react";
+import Link from "next/link";
 
 const Landing = () => {
     const [animating, setAnimating] = useState(true);
+    const [loadChangelogs, setLoadChangelogs] = useState(false);
 
     setTimeout(() => {
         setAnimating(false);
     }, 1000);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoadChangelogs(true);
+        }, 200 * changelog.length);
+    }, []);
 
     return (
         <>
@@ -84,22 +93,27 @@ const Landing = () => {
                         <h2>CHANGELOG</h2>
                     </div>
                     <ul>
-                        {changelog.map((c) => (
-                            <li key={c.version}>
-                                <Link href={`/changelog#${c.version}`}>
-                                    <a>
+                        {loadChangelogs ? (
+                            changelog.map((c) => (
+                                <li key={c.version}>
+                                    <a href={`/changelog#${c.version}`}>
                                         <span></span>
                                     </a>
-                                </Link>
-                                <h3 key={c.version}>{c.version}</h3>
-                                <p key={c.date} className={styles.changeLogDate}>
-                                    {c.date}
-                                </p>
-                                <p key={c.description} className={styles.changeLogDesc}>
-                                    {c.description}
-                                </p>
-                            </li>
-                        ))}
+                                    <h3 key={c.version}>{c.version}</h3>
+                                    <p key={c.date} className={styles.changeLogDate}>
+                                        {c.date}
+                                    </p>
+                                    <p
+                                        key={c.description}
+                                        className={styles.changeLogDesc}
+                                    >
+                                        {c.description}
+                                    </p>
+                                </li>
+                            ))
+                        ) : (
+                            <SpinnerDotted />
+                        )}
                     </ul>
                     <Link href={"/changelog"}>
                         <a>
