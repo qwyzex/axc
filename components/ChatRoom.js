@@ -28,7 +28,7 @@ const ChatRoom = () => {
         e.preventDefault();
         const { uid, photoURL, displayName } = auth.currentUser;
         await addDoc(messagesRef, {
-            text: formValue,
+            text: Buffer.from(formValue, "utf8").toString("base64"),
             createdAt: serverTimestamp(),
             displayName,
             uid,
@@ -108,7 +108,10 @@ const ChatMessage = (props) => {
             />
             <div className={styles.messageBody}>
                 <p className={styles.messageUsername}>{displayName}</p>
-                <p className={styles.messageText}>{text}</p>
+                <p className={styles.messageText}>
+                    {/* {text} */}
+                    {Buffer.from(text, "base64").toString("utf8")}
+                </p>
                 {props.usrId === auth.currentUser.uid && (
                     <div className={styles.deleteButtonContainer}>
                         <button
