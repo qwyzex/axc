@@ -13,7 +13,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import Confirmation from "./Confirmation";
-import { SpinnerDotted } from "spinners-react";
+import { SpinnerDiamond } from "spinners-react";
 
 const ChatRoom = () => {
     const scrollDummy = useRef();
@@ -24,7 +24,7 @@ const ChatRoom = () => {
 
     const [messages] = useCollectionData(q, { idField: "id" });
     const [formValue, setFormValue] = useState("");
-    console.log(messages)
+    console.log(messages);
 
     async function sendMessage(e) {
         e.preventDefault();
@@ -54,16 +54,24 @@ const ChatRoom = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            setLoading(false)
-        }, 400);
+            setLoading(false);
+        }, 600);
     }, []);
 
     return (
         <div className={styles.chatRoom}>
-            <ul className={styles.messageContainer}>
+            <ul className={`${styles.messageContainer} ${loading && styles.loading}`}>
                 <span ref={scrollDummy}></span>
                 {loading ? (
-                    <SpinnerDotted />
+                    <>
+                        <h3>RETRIEVING DATA...</h3>
+                        <SpinnerDiamond
+                            color="#ff003c"
+                            thickness={150}
+                            size={75}
+                            speed={140}
+                        />
+                    </>
                 ) : (
                     messages &&
                     messages.map((msg) => (
