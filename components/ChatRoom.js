@@ -9,6 +9,9 @@ import {
     limit,
     deleteDoc,
     doc,
+    where,
+    setDoc,
+    updateDoc,
 } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -19,12 +22,15 @@ const ChatRoom = () => {
     const scrollDummy = useRef();
     const [loading, setLoading] = useState(true);
 
-    const messagesRef = collection(db, "messages");
+    const messagesRef = collection(
+        db,
+        process.env.NODE_ENV === "development" ? "devmessages" : "messages"
+    );
     const q = query(messagesRef, orderBy("createdAt", "desc"), limit(150));
 
     const [messages] = useCollectionData(q, { idField: "id" });
     const [formValue, setFormValue] = useState("");
-    console.log(messages)
+    console.log(messages);
 
     async function sendMessage(e) {
         e.preventDefault();
@@ -54,7 +60,7 @@ const ChatRoom = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            setLoading(false)
+            setLoading(false);
         }, 400);
     }, []);
 
@@ -78,7 +84,7 @@ const ChatRoom = () => {
             </ul>
             <form onSubmit={sendMessage} className={styles.messageForm}>
                 <input
-                    className={formValue === "" && styles.empty}
+                    className={formValue === "" ? styles.empty : null}
                     required
                     autoFocus
                     onChange={(e) => setFormValue(e.target.value)}
