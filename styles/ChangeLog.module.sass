@@ -9,9 +9,9 @@
         padding: 1rem
         border-radius: .3em
         box-shadow: 0 6px 8px #20202030
-        transition: .3s ease
 
         position: relative
+        transition: .3s ease
 
         &:first-of-type
             &::after
@@ -19,16 +19,17 @@
                 position: absolute
                 top: 10px
                 right: 10px
-                padding: .2em .8em
+                
+                background-color: var(--green)
                 border-radius: .3em
+                padding: .2em .8em
                 box-shadow: 0 3px 6px #20202030
                 font-weight: 600
                 color: #ffffff
-                background-color: var(--green)
+
         &:target
             outline: 3px solid var(--blue)
             outline-offset: 4px
-
         &:hover
             box-shadow: 0 12px 24px #20202060
 
@@ -44,6 +45,7 @@
                 padding: .5rem 1rem
                 background-color: #efefef
                 border-radius: .3rem
+
                 li
                     list-style: none
                     p

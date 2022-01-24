@@ -1,4 +1,3 @@
-// import { SVGClose } from "./Svg";
 import styles from "../styles/AccountInfo.module.sass";
 import Confirmation from "./Confirmation";
 import CloseButton from "./CloseButton";
@@ -48,8 +47,8 @@ const AccountInfo = (props) => {
                         signOut(auth);
                         setConfirmLogOut(!confirmLogOut);
                     }}
-                    setStateRef={setConfirmLogOut}
-                    stateRef={confirmLogOut}
+                    setStateRef={confirmLogOut ? setConfirmLogOut : null}
+                    stateRef={confirmLogOut ? confirmLogOut : null}
                 />
             )}
         </>

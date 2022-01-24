@@ -9,12 +9,7 @@ import { SpinnerDotted } from "spinners-react";
 import Link from "next/link";
 
 const Landing = () => {
-    const [animating, setAnimating] = useState(true);
     const [loadChangelogs, setLoadChangelogs] = useState(false);
-
-    setTimeout(() => {
-        setAnimating(false);
-    }, 1000);
 
     useEffect(() => {
         setTimeout(() => {
@@ -25,7 +20,7 @@ const Landing = () => {
     return (
         <>
             <div
-                className={`landing ${styles.container} ${animating && styles.animating}`}
+                className={`landing ${styles.container}`}
             >
                 <main>
                     <header className={styles.header}>

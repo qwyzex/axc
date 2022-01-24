@@ -3,10 +3,10 @@ import Header from "../components/Header";
 import Buttons from "../components/Buttons";
 import Landing from "../components/Landing";
 import ChatRoom from "components/ChatRoom";
-import { SpinnerDotted } from "spinners-react";
+import { SpinnerCircular, SpinnerDotted } from "spinners-react";
 
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getFirestore } from "firebase/firestore";
 import { useState, useEffect } from "react";
@@ -29,14 +29,10 @@ export default function Index() {
     const [user] = useAuthState(auth);
     const [firebaseData, setFirebaseData] = useState(false);
 
-    useEffect(() => {
-        if (auth != null) {
-            setTimeout(() => {
-                setFirebaseData(true);
-            }, 500);
-        }
-    }, []);
-
+    setTimeout(() => {
+        setFirebaseData(true);
+    }, 600);
+    
     return (
         <>
             <Head>
@@ -51,26 +47,22 @@ export default function Index() {
                     !user && "displayLanding"
                 }`}
             >
-                {firebaseData ? user ? <ChatRoom /> : <Landing /> : null}
-                <SpinnerDotted
-                    color="#ff003c"
-                    thickness={150}
-                    size={75}
-                    speed={140}
-                    className="loadingSpinner"
-                />
+                {firebaseData ? (
+                    user ? (
+                        <ChatRoom />
+                    ) : (
+                        <Landing />
+                    )
+                ) : (
+                    <SpinnerDotted
+                        color="#ff003c"
+                        thickness={150}
+                        size={75}
+                        speed={140}
+                        className="loadingSpinner"
+                    />
+                )}
             </main>
         </>
     );
 }
-
-export const Home = () => {
-    return (
-        <div>
-            <h1>AXC</h1>
-            <Buttons />
-        </div>
-    );
-};
-
-// export let openAppInfo = false;

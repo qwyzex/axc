@@ -10,19 +10,21 @@ import {
     deleteDoc,
     doc,
 } from "firebase/firestore";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import Confirmation from "./Confirmation";
+import { SpinnerDotted } from "spinners-react";
 
 const ChatRoom = () => {
     const scrollDummy = useRef();
+    const [loading, setLoading] = useState(true);
 
     const messagesRef = collection(db, "messages");
-
     const q = query(messagesRef, orderBy("createdAt", "desc"), limit(150));
 
     const [messages] = useCollectionData(q, { idField: "id" });
     const [formValue, setFormValue] = useState("");
+    console.log(messages)
 
     async function sendMessage(e) {
         e.preventDefault();
@@ -50,11 +52,20 @@ const ChatRoom = () => {
         );
     };
 
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 400);
+    }, []);
+
     return (
         <div className={styles.chatRoom}>
             <ul className={styles.messageContainer}>
                 <span ref={scrollDummy}></span>
-                {messages &&
+                {loading ? (
+                    <SpinnerDotted />
+                ) : (
+                    messages &&
                     messages.map((msg) => (
                         <ChatMessage
                             key={msg.id}
@@ -62,7 +73,8 @@ const ChatRoom = () => {
                             usrId={msg.uid}
                             msgId={msg.id}
                         />
-                    ))}
+                    ))
+                )}
             </ul>
             <form onSubmit={sendMessage} className={styles.messageForm}>
                 <input

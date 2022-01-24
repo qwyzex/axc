@@ -11,7 +11,7 @@ const Confirmation = (props) => {
                     {props.message ? <p>{props.message}</p> : null}
                 </div>
                 <div>
-                    <button className={styles.confirm} onClick={props.event}>
+                    <button className={styles.confirm} onClick={props.event} autoFocus>
                         {props.confirmText ? props.confirmText : "YES"}
                     </button>
                     <button
