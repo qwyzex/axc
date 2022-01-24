@@ -3,7 +3,6 @@ import styles from "../styles/Landing.module.sass";
 import AnchorButton from "./AnchorButton";
 import Buttons from "./Buttons";
 import { changelog } from "../data/changelogs";
-// import Link from "next/link";
 import { SVGTimeReverse } from "./Svg";
 import { SpinnerDotted } from "spinners-react";
 import Link from "next/link";
@@ -14,7 +13,7 @@ const Landing = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoadChangelogs(true);
-        }, 200 * changelog.length);
+        }, 100 * changelog.length);
     }, []);
 
     return (
@@ -66,18 +65,20 @@ const Landing = () => {
                                 newtab
                                 text="Source Code"
                                 color="260"
-                                light
+                                dark
+                                invertClick
                                 bold
-                                thickness={3}
+                                thickness={4}
                             />
                             <AnchorButton
                                 to="https://twitter.com/qwyzex"
                                 newtab
                                 text="Follow me on Twitter"
                                 color="200"
-                                light
+                                dark
+                                invertClick
                                 bold
-                                thickness={3}
+                                thickness={4}
                             />
                         </div>
                     </div>
