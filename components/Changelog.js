@@ -1,5 +1,6 @@
 import { changelog } from "../data/changelogs";
 import styles from "../styles/ChangeLog.module.sass";
+import Hr from "./Hr";
 
 const ChangeLog = () => {
     return (
@@ -10,9 +11,9 @@ const ChangeLog = () => {
                         <h1>{c.version}</h1>
                         <p className={`cascade ${styles.date}`}>{c.date}</p>
                         <p className={styles.description}>{c.description}</p>
-                        <hr />
+                        <Hr glow />
                         <details className={styles.featureWrapper}>
-                            <summary>What's New?</summary>
+                            <summary>What've Changes?</summary>
                             <ul>
                                 {c.feature.map((f) => (
                                     <li key={f.name}>

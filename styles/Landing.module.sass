@@ -7,7 +7,6 @@
     .container
         flex-direction: row
         gap: 2rem
-
         .changeLogContainer
             margin-block-start: 6rem
     
@@ -16,8 +15,12 @@
     height: 100%
     width: 100%
 
-    background-image: url('/images/background/abstract-10.jpg')
-    background-position: left -35rem bottom -10rem
+    background: #F6D5B4
+    background: -webkit-linear-gradient(105deg, #F6D5B4, #4881CE)
+    background: -moz-linear-gradient(105deg, #F6D5B4, #4881CE)
+    background: linear-gradient(105deg, #F6D5B4, #4881CE)
+    // background-image: url('/images/background/abstract-10.jpg')
+    // background-position: left -35rem bottom -10rem
     padding: 2rem
     display: flex
 
@@ -27,23 +30,6 @@
 
     &.animating
         overflow-y: hidden !important
-
-    // &::before
-    //     content: ''
-    //     position: absolute
-    //     top: 0
-    //     left: 0
-        
-    //     height: 100%
-    //     width: 100%
-    //     // background-color: #ff003c
-    //     background: linear-gradient(135deg,#1cb99f, #0c85d6)//, url('/images/background/abstract-10.jpg')
-    //     // background-position: left -15rem bottom -10rem
-    //     opacity: 1
-    //     z-index: -1
-
-    //     backdrop-filter: blur(1rem)
-    //     -webkit-backdrop-filter: blur(1rem)
 
     main
         display: flex
@@ -59,13 +45,7 @@
                 font-size: 4em
                 padding: .1em
                 width: max-content
-                
-                color: #ffffff
-                // color: transparent
-                // background: linear-gradient(90deg, orangered, #ff003c)
-                // background-clip: text
-                // -webkit-background-clip: text
-                // -moz-background-clip: text
+                color: #ffffff                
             > p
                 color: #ffffff
 

@@ -28,11 +28,18 @@ export const db = getFirestore(axcApp);
 export default function Index() {
     const [user] = useAuthState(auth);
     const [firebaseData, setFirebaseData] = useState(false);
+    const [loadingOut, setLoadingOut] = useState(false);
 
     setTimeout(() => {
         setFirebaseData(true);
     }, 600);
-    
+
+    if (firebaseData) {
+        setTimeout(() => {
+            setLoadingOut(true);
+        }, 1200);
+    }
+
     return (
         <>
             <Head>
@@ -47,19 +54,14 @@ export default function Index() {
                     !user && "displayLanding"
                 }`}
             >
-                {firebaseData ? (
-                    user ? (
-                        <ChatRoom />
-                    ) : (
-                        <Landing />
-                    )
-                ) : (
+                {firebaseData ? user ? <ChatRoom /> : <Landing /> : null}
+                {!loadingOut && (
                     <SpinnerDotted
                         color="#ff003c"
                         thickness={150}
                         size={75}
                         speed={140}
-                        className="loadingSpinner"
+                        className={`loadingSpinner ${firebaseData && "leaveAnimation"}`}
                     />
                 )}
             </main>
