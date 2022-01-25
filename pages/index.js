@@ -1,15 +1,14 @@
 import Head from "next/head";
 import Header from "../components/Header";
-import Buttons from "../components/Buttons";
 import Landing from "../components/Landing";
 import ChatRoom from "components/ChatRoom";
-import { SpinnerCircular, SpinnerDotted } from "spinners-react";
+import { SpinnerDotted } from "spinners-react";
 
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getFirestore } from "firebase/firestore";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBtISRBT4Q1fw_knzSpX8-AjJZRWIFG3ok",

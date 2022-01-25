@@ -1,26 +1,25 @@
 // import Link from "next/link";
 import { useState } from "react";
 import { auth } from "pages/index";
-import styles from "../styles/Header.module.sass";
-
 import { useAuthState } from "react-firebase-hooks/auth";
+import { signOut } from "firebase/auth";
+import Link from "next/link";
 
 import Buttons from "./Buttons";
 import AppInfo from "./AppInfo";
 import Confirmation from "./Confirmation";
+import styles from "../styles/Header.module.sass";
+import AccountInfo from "./AccountInfo";
+
 import {
     SVGAccount,
     SVGBug,
-    SVGDollar,
     SVGInfo,
     SVGLogIn,
     SVGLogOut,
     SVGMenu,
     SVGTimeReverse,
 } from "./Svg";
-import AccountInfo from "./AccountInfo";
-import { signOut } from "firebase/auth";
-import Link from "next/link";
 
 export default function Header() {
     const [user] = useAuthState(auth);
@@ -71,12 +70,6 @@ export default function Header() {
                                 About
                             </button>
                         </li>
-                        {/* <li className={styles.listItem}>
-                            <a>
-                                <SVGDollar />
-                                Donate
-                            </a>
-                        </li> */}
                         <li className={styles.listItem}>
                             <Link href="/changelog">
                                 <a>

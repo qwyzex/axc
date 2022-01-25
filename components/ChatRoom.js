@@ -9,9 +9,6 @@ import {
     limit,
     deleteDoc,
     doc,
-    where,
-    setDoc,
-    updateDoc,
 } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -61,11 +58,7 @@ const ChatRoom = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-<<<<<<< HEAD
         }, 400);
-=======
-        }, 600);
->>>>>>> 3b34422add5ec5a2c7cdc17f15f5a0f33fe1ccb1
     }, []);
 
     return (

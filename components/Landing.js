@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { SpinnerDotted } from "spinners-react";
+
 import styles from "../styles/Landing.module.sass";
 import AnchorButton from "./AnchorButton";
 import Buttons from "./Buttons";
 import { changelog } from "../data/changelogs";
 import { SVGTimeReverse } from "./Svg";
-import { SpinnerDotted } from "spinners-react";
-import Link from "next/link";
 
 const Landing = () => {
     const [loadChangelogs, setLoadChangelogs] = useState(false);

@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../pages/index";
 import styles from "../styles/Buttons.module.sass";
@@ -8,7 +8,7 @@ const Buttons = (props) => {
 
     function signInWithGoogle() {
         const provider = new GoogleAuthProvider();
-        signInWithRedirect(auth, provider);
+        signInWithPopup(auth, provider);
     }
 
     if (user) {
