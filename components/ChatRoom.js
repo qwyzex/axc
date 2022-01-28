@@ -27,7 +27,7 @@ const ChatRoom = () => {
 
     const [messages] = useCollectionData(q, { idField: "id" });
     const [formValue, setFormValue] = useState("");
-    console.log(messages);
+    // console.log(messages);
 
     async function sendMessage(e) {
         e.preventDefault();
@@ -89,7 +89,7 @@ const ChatRoom = () => {
             </ul>
             <form onSubmit={sendMessage} className={styles.messageForm}>
                 <input
-                    className={formValue === "" ? styles.empty : null}
+                    className={formValue === "" && styles.empty}
                     required
                     autoFocus
                     onChange={(e) => setFormValue(e.target.value)}
