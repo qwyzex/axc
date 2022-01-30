@@ -1,36 +1,50 @@
-import Header from "components/Header";
-import { SVGTimeReverse } from "components/Svg";
 import Head from "next/head";
 import Link from "next/link";
-import { auth } from "pages";
+import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { SpinnerDiamond } from "spinners-react";
-import ChangeLog from "../components/Changelog";
-import { changelog } from "../data/changelogs";
+
+import { auth } from "../firebase";
 import styles from "../styles/ChangelogPage.module.sass";
 
-const ChangeLogPage = () => {
-    const [user] = useAuthState(auth);
+import Header from "../components/Header";
+import ChangeLog from "../components/Changelog";
+import { SVGTimeReverse } from "../components/Svg";
+import { SpinnerDiamond } from "spinners-react";
 
-    return (
-        <div>
-            <Head>
-                <title>App Changelog</title>
-                <meta name="descripton" content="AXC Life Changelog"></meta>
-            </Head>
-            <Header />
-            <main className={styles.container}>
-                <Link href="/">
-                    {user ? "<< Back to Chatroom" : "<< Back to Homepage"}
-                </Link>
-                <div>
-                    <SVGTimeReverse />
-                    <h1>Changelog</h1>
-                </div>
-                {!changelog.length ? <SpinnerDiamond /> : <ChangeLog />}
-            </main>
-        </div>
-    );
+const ChangeLogPage = () => {
+	const [user] = useAuthState(auth);
+
+	const [changelogData, setChangelogdata] = useState(null);
+
+	useEffect(() => {
+		async function fetchChangelog() {
+			const res = await fetch("/api/changelog");
+			const data = await res.json();
+
+			setChangelogdata(data);
+		}
+		fetchChangelog();
+	}, []);
+
+	return (
+		<div>
+			<Head>
+				<title>App Changelog</title>
+				<meta name="descripton" content="AXC Life Changelog"></meta>
+			</Head>
+			<Header />
+			<main className={styles.container}>
+				<Link href="/">
+					{user ? "<< Back To Chatroom" : "<< Back To Homepage"}
+				</Link>
+				<div>
+					<SVGTimeReverse />
+					<h1>Changelog</h1>
+				</div>
+				{changelogData ? <ChangeLog /> : <SpinnerDiamond />}
+			</main>
+		</div>
+	);
 };
 
 export default ChangeLogPage;

@@ -1,3 +1,5 @@
+@import ./Vars
+    
 @media  ( max-width: 60rem )
     .container
         flex-direction: column
@@ -130,7 +132,7 @@
                 list-style: none
                 position: relative
                 color: #202020
-                background-color: #d4d4d4
+                background-color: #e8e8e8
                 padding: .5rem
                 border-radius: .3rem
                 outline: 4px solid #00000000
@@ -139,7 +141,7 @@
 
                 &:hover
                     filter: brightness(110%)
-                    box-shadow: 0 4px 7px var(--blue)
+                    box-shadow: 0 4px 7px $err
                 &:active
                     outline: 4px solid #cccccc
 
