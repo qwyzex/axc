@@ -6,7 +6,7 @@ import Buttons from "./Buttons";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useState } from "react";
-import { auth } from "pages";
+import { auth } from "../firebase";
 
 const AccountInfo = (props) => {
     const [user] = useAuthState(auth);

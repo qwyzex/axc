@@ -1,44 +1,42 @@
 {
-  "name": "axc",
-  "description": "Attemp-X Chat App",
-  "readme": "README.md",
-  "version": "1.0.0",
-  "license": "MIT",
-  "author": {
-    "name": "Ihsan",
-    "email": "qwyzex@gmail.com",
-    "url": "https://github.com/qwyzex"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/qwyzex/axc",
-    "directory": "/"
-  },
-  "bugs": {
-    "url": "https://github.com/qwyzex/axc/issues/new",
-    "email": "qwyzex@yandex.com"
-  },
-  "private": true,
-  "scripts": {
-    "serve": "concurrently --kill-others \"npm run dev\" \"npm run sass\"",
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "sass": "sass --watch styles/sass:styles/css"
-  },
-  "dependencies": {
-    "firebase": "^9.6.3",
-    "next": "12.0.7",
-    "react": "17.0.2",
-    "react-cookie-consent": "^7.2.1",
-    "react-dom": "17.0.2",
-    "react-firebase-hooks": "^4.0.1",
-    "spinners-react": "^1.0.6"
-  },
-  "devDependencies": {
-    "eslint": "8.6.0",
-    "eslint-config-next": "12.0.7",
-    "sass": "^1.45.2"
-  }
+    "name": "axc",
+    "description": "Attemp-X Chat App",
+    "readme": "README.md",
+    "version": "1.0.0",
+    "license": "MIT",
+    "author": {
+        "name": "Ihsan",
+        "email": "qwyzex@gmail.com",
+        "url": "https://github.com/qwyzex"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/qwyzex/axc",
+        "directory": "/"
+    },
+    "bugs": {
+        "url": "https://github.com/qwyzex/axc/issues/new",
+        "email": "qwyzex@yandex.com"
+    },
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "firebase": "^9.6.3",
+        "next": "12.0.7",
+        "react": "17.0.2",
+        "react-cookie-consent": "^7.2.1",
+        "react-dom": "17.0.2",
+        "react-firebase-hooks": "^4.0.1",
+        "spinners-react": "^1.0.6"
+    },
+    "devDependencies": {
+        "eslint": "8.6.0",
+        "eslint-config-next": "12.0.7",
+        "sass": "^1.45.2"
+    }
 }
