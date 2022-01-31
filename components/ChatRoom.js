@@ -1,4 +1,4 @@
-import { db, auth } from "../pages/index";
+import { db, auth } from "../firebase";
 import styles from "../styles/ChatRoom.module.sass";
 import {
     collection,
@@ -38,9 +38,18 @@ const ChatRoom = () => {
             displayName,
             uid,
             photoURL,
-        });
-        setFormValue("");
-        scrollDummy.current.scrollIntoView({ behavior: "smooth" });
+        })
+            .then(() => {
+                setFormValue("");
+                scrollDummy.current.scrollIntoView({ behavior: "smooth" });
+            })
+            .catch((error) => {
+                const code = error.code;
+
+                console.log(error.code);
+                console.log(error.type);
+                console.log(error.message);
+            });
     }
 
     const SubmitButton = () => {
@@ -56,10 +65,10 @@ const ChatRoom = () => {
     };
 
     useEffect(() => {
-        setTimeout(() => {
+        if (messages) {
             setLoading(false);
-        }, 400);
-    }, []);
+        }
+    }, [messages]);
 
     return (
         <div className={styles.chatRoom}>
@@ -89,7 +98,7 @@ const ChatRoom = () => {
             </ul>
             <form onSubmit={sendMessage} className={styles.messageForm}>
                 <input
-                    className={formValue === "" && styles.empty}
+                    className={formValue === "" ? styles.empty : ""}
                     required
                     autoFocus
                     onChange={(e) => setFormValue(e.target.value)}
@@ -107,7 +116,10 @@ const ChatMessage = (props) => {
     const messageClass = uid === auth.currentUser.uid ? styles.sent : styles.received;
 
     // delete function
-    const messagesRef = collection(db, "messages");
+    const messagesRef = collection(
+        db,
+        process.env.NODE_ENV === "development" ? "devmessages" : "messages"
+    );
     const docRef = doc(messagesRef, props.msgId);
     const [deleteConfirm, setDeleteConfirm] = useState(false);
 
@@ -134,7 +146,6 @@ const ChatMessage = (props) => {
             <div className={styles.messageBody}>
                 <p className={styles.messageUsername}>{displayName}</p>
                 <p className={styles.messageText}>
-                    {/* {text} */}
                     {Buffer.from(text, "base64").toString("utf8")}
                 </p>
                 {props.usrId === auth.currentUser.uid && (

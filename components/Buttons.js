@@ -1,6 +1,6 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../pages/index";
+import { auth } from "../firebase";
 import styles from "../styles/Buttons.module.sass";
 
 const Buttons = (props) => {

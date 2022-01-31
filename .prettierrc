@@ -1,0 +1,10 @@
+{
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "endOfLine": "lf",
+    "singleQuote": false,
+    "useTabs": true,
+    "tabWidth": 4,
+    "htmlWhitespaceSensitivity": "strict",
+    "semi": true
+}

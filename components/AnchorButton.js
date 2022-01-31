@@ -1,20 +1,23 @@
 import styles from "../styles/AnchorButton.module.sass";
 
 const AnchorButton = (props) => {
-    return (
-        <a
-            href={props.to}
-            target={props.newtab && "_blank"}
-            className={`
+	return (
+		<a
+			href={props.to}
+			target={props.newtab && "_blank"}
+			className={`
                 ${styles.container} 
                 ${props.primary && styles.primary}
                 ${props.invertHover && styles.invertHover}
                 ${props.invertClick && styles.invertClick}
                 ${props.dark && styles.dark}
                 ${props.light && styles.light}
+                ${props.shadow && styles.shadow}
+                ${props.shadowHover && styles.shadowHover}
+                ${props.shadowClick && styles.shadowClick}
             `}
-            // prettier-ignore
-            style={{
+			// prettier-ignore
+			style={{
                 "--color": props.color,
                 "--textcolor": props.dark
                     ? "7.8%"
@@ -29,10 +32,10 @@ const AnchorButton = (props) => {
                 fontStyle: props.italic && "italic",
                 fontWeight: props.bold && "bold",
             }}
-        >
-            {props.text}
-        </a>
-    );
+		>
+			{props.text}
+		</a>
+	);
 };
 
 export default AnchorButton;

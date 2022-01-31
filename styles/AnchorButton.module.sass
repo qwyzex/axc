@@ -18,6 +18,15 @@
     outline-style: solid
     transition: .3s ease
 
+    &.shadow
+        box-shadow: 0 3px 6px #20202080
+    &.shadowHover
+        &:hover
+            box-shadow: 0 3px 6px #20202080
+    &.shadowClick
+        &:active
+            box-shadow: 0 3px 6px #20202080
+
     &.dark
         color: var(--textdark)
         &.invertHover
@@ -43,7 +52,6 @@
             background-color: var(--initial) !important
             
     &.primary
-
         &:not(:hover)
             outline-color: transparent !important
         &:not(:active)
