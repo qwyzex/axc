@@ -1,0 +1,56 @@
+// :not(.container)
+//     user-select: none !important
+//     background-color: yellow !important
+    
+.container
+    padding: 1rem
+    border-radius: .3em
+    cursor: default
+
+    display: flex
+    flex-direction: column
+    gap: 1rem
+
+    box-shadow: 0 15px 30px #20202090    
+        
+
+    > div
+        display: flex
+        gap: .5rem
+
+        &:not(:last-of-type)
+            flex-direction: column
+            
+
+        button
+            border: none
+            border-radius: .3em
+            outline-offset: 2px
+
+            width: max-content
+            min-width: 4rem
+            padding: .4rem
+            border: 2px solid #00000000
+            transition: .2s ease
+
+            display: flex
+            justify-content: center
+            align-items: center
+
+        .confirm
+            background-color: var(--red)
+            color: #f5f5f5
+            filter: brightness(90%)
+
+            &:hover
+                filter: brightness(110%)
+            &:focus
+                outline: 2px solid orangered
+
+        .cancel
+            background-color: #f5f5f5
+
+            &:hover
+                background-color: #c4c4c4
+            &:focus
+                outline: 2px solid black

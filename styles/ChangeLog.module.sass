@@ -1,0 +1,52 @@
+.wrapper
+    display: flex
+    flex-direction: column
+    gap: 2rem
+
+    .changelogItem
+        list-style: none
+        background-color: #ffffff
+        padding: 1rem
+        border-radius: .3em
+        box-shadow: 0 6px 8px #20202030
+
+        position: relative
+        transition: .3s ease
+
+        &:first-of-type
+            &::after
+                content: 'CURRENT VERSION'
+                position: absolute
+                top: 10px
+                right: 10px
+                
+                background-color: var(--green)
+                border-radius: .3em
+                padding: .2em .8em
+                box-shadow: 0 3px 6px #20202030
+                font-weight: 600
+                color: #ffffff
+
+        &:target
+            outline: 3px solid var(--blue)
+            outline-offset: 4px
+        &:hover
+            box-shadow: 0 12px 24px #20202060
+
+        > *
+            &:not(details)
+                width: max-content
+
+        details
+            summary
+                cursor: pointer
+            ul
+                margin-block-start: 6px
+                padding: .5rem 1rem
+                background-color: #efefef
+                border-radius: .3rem
+
+                li
+                    list-style: none
+                    p
+                        padding-inline: 1rem
