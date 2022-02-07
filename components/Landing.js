@@ -5,7 +5,6 @@ import { SpinnerDotted } from "spinners-react";
 import styles from "../styles/Landing.module.sass";
 import AnchorButton from "./AnchorButton";
 import Buttons from "./Buttons";
-import { changelog } from "../data/changelogs";
 import { SVGTimeReverse } from "./Svg";
 
 const Landing = () => {
@@ -16,7 +15,6 @@ const Landing = () => {
 			const res = await fetch("/api/changelog");
 			const data = await res.json();
 
-			console.log(data);
 			setChangelogdata(data);
 		}
 		fetchChangelog();
@@ -96,7 +94,7 @@ const Landing = () => {
 					</div>
 					<ul>
 						{changelogData ? (
-							changelogData.map((c) => (
+							changelogData.slice(0, 3).map((c) => (
 								<li key={c.version}>
 									<a href={`/changelog#${c.version}`}>
 										<span></span>
