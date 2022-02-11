@@ -1,0 +1,16 @@
+{
+    "short_name": "AXC",
+    "name": "Attemp-X",
+    "icons": [
+        {
+            "src": "favicon.ico",
+            "sizes": "256x256",
+            "type": "image/ico",
+            "purpose": "any maskable"
+        }
+    ],
+    "start_url": "./",
+    "display": "standalone",
+    "theme_color": "#202020",
+    "background_color": "#f5f5f5"
+}

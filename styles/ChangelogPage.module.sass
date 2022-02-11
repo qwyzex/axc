@@ -1,0 +1,19 @@
+.container
+    padding: 3rem
+    background-color: #eeeeee
+
+    display: flex
+    flex-direction: column
+    gap: 1rem
+
+    min-height: calc( 100vh - 5rem )
+
+    > div
+        display: flex
+        justify-content: center
+        align-items: center
+        gap: 1rem
+    > * 
+        &:not(ul) // ul is the changelog container
+            width: max-content
+            
