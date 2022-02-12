@@ -14,15 +14,19 @@ import {
 	DocumentData,
 	Query,
 } from 'firebase/firestore';
-import { useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import Confirmation from './Confirmation';
 import { SpinnerDiamond } from 'spinners-react';
 import { Data } from 'react-firebase-hooks/firestore/dist/firestore/types';
+import firerr from 'firerr';
+import Loading from './Loading';
+import FloatingAlert from './FloatingAlert';
 
 const ChatRoom = () => {
 	const scrollDummy: any = useRef();
 	const [loading, setLoading] = useState(true);
+	const [chatError, setChatError] = useState('');
 
 	const messagesRef: CollectionReference<DocumentData> = collection(
 		db,
@@ -36,7 +40,6 @@ const ChatRoom = () => {
 
 	const [messages] = useCollectionData(q, { idField: 'id' });
 	const [formValue, setFormValue] = useState('');
-	// console.log(messages);
 
 	async function sendMessage(e: any) {
 		e.preventDefault();
@@ -54,10 +57,7 @@ const ChatRoom = () => {
 			})
 			.catch((error) => {
 				const code: string = error.code;
-
-				console.log(error.code);
-				console.log(error.type);
-				console.log(error.message);
+				firerr(code, setChatError);
 			});
 	}
 
@@ -80,47 +80,50 @@ const ChatRoom = () => {
 	}, [messages]);
 
 	return (
-		<div className={styles.chatRoom}>
-			<ul
-				className={`${styles.messageContainer} ${
-					loading && styles.loading
-				}`}
-			>
-				<span ref={scrollDummy}></span>
-				{loading ? (
-					<>
-						<h3>RETRIEVING DATA...</h3>
-						<SpinnerDiamond
-							color="#ff003c"
-							thickness={150}
-							size={75}
-							speed={140}
-						/>
-					</>
-				) : (
-					messages &&
-					messages.map((msg: Data<DocumentData, '', ''>) => (
-						<ChatMessage
-							message={msg}
-							key={msg.id}
-							usrId={msg.uid}
-							msgId={msg.id}
-						/>
-					))
-				)}
-			</ul>
-			<form onSubmit={sendMessage} className={styles.messageForm}>
-				<input
-					className={formValue === '' ? styles.empty : ''}
-					required
-					autoFocus
-					onChange={(e) => setFormValue(e.target.value)}
-					value={formValue}
-					placeholder="Insert your message here..."
-				/>
-				<SubmitButton />
-			</form>
-		</div>
+		<>
+			<FloatingAlert level="error" message={chatError} />
+			<div className={styles.chatRoom}>
+				<ul
+					className={`${styles.messageContainer} ${
+						loading && styles.loading
+					}`}
+				>
+					<span ref={scrollDummy}></span>
+					{loading ? (
+						<>
+							<h3>RETRIEVING DATA...</h3>
+							<Loading
+								thickness={350}
+								color={'var(--blue)'}
+								secColor={'#1c62e420'}
+							/>
+						</>
+					) : (
+						messages &&
+						messages.map((msg: Data<DocumentData, '', ''>) => (
+							<ChatMessage
+								message={msg}
+								key={msg.id}
+								usrId={msg.uid}
+								msgId={msg.id}
+								setChatError={setChatError}
+							/>
+						))
+					)}
+				</ul>
+				<form onSubmit={sendMessage} className={styles.messageForm}>
+					<input
+						className={formValue === '' ? styles.empty : ''}
+						required
+						autoFocus
+						onChange={(e) => setFormValue(e.target.value)}
+						value={formValue}
+						placeholder="Insert your message here..."
+					/>
+					<SubmitButton />
+				</form>
+			</div>
+		</>
 	);
 };
 
@@ -128,6 +131,7 @@ export interface ChatMessageProps {
 	message: Data<DocumentData, '', ''>;
 	msgId: string;
 	usrId: string;
+	setChatError: Dispatch<SetStateAction<string>>;
 }
 
 const ChatMessage = (props: ChatMessageProps) => {
@@ -147,7 +151,12 @@ const ChatMessage = (props: ChatMessageProps) => {
 		<li className={`message ${messageClass} ${styles.messageWrapper}`}>
 			{deleteConfirm && (
 				<Confirmation
-					event={async () => await deleteDoc(docRef)}
+					event={async () => {
+						await deleteDoc(docRef).catch((err) => {
+							const code = err.code;
+							firerr(code, props.setChatError);
+						});
+					}}
 					setStateRef={deleteConfirm ? setDeleteConfirm : () => {}}
 					stateRef={deleteConfirm ? deleteConfirm : false}
 					title="Are you sure you want to delete the message?"

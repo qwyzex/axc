@@ -1,34 +1,41 @@
+@import ./Vars
+    
 .alert
     position: fixed
     right: 2rem
+    bottom: -100vh
 
     display: flex
     visibility: hidden
     opacity: 0
+    pointer-events: none
 
-    background-color: var(--red)
-    box-shadow: 0 0.5rem 1rem var(--red)
     padding: .5rem
 
-    transition: all 0.3s ease
+    transition: all 0.9s ease
+
+    &.warning
+        background-color: $wrn !important
+        box-shadow: 0 .4rem .6rem lighten($wrn, 5%) !important
+    &.error
+        background-color: $err !important
+        box-shadow: 0 .4rem .6rem lighten($err, 5%) !important
+    &.success
+        background-color: $msg !important
+        box-shadow: 0 .4rem .6rem lighten($msg, 5%) !important
+    &.message
+        background-color: $inf !important
+        box-shadow: 0 .4rem .6rem lighten($inf, 5%) !important
 
     &.show
-        display: flex !important
         visibility: visible !important
+        pointer-events: auto
         opacity: 1 !important
         bottom: 1.5rem !important
-
-        animation: inAnimation 0.3s ease
 
     p
         font-size: .8rem
         font-weight: 600
         color: #fff
         padding: .2rem
-
-@keyframes inAnimation
-    0%
-        bottom: -100vh
-    100%
-        bottom: -1.5rem
         

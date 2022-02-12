@@ -7,8 +7,8 @@ import { Dispatch, SetStateAction } from 'react';
 
 export interface ButtonsProps {
 	setErrors: Dispatch<SetStateAction<string>>;
-	setStateRef?: Dispatch<SetStateAction<boolean>>;
-	stateRef?: boolean;
+	setConfirmationStateRef: Dispatch<SetStateAction<boolean>> | void;
+	confirmationStateRef: boolean;
 
 	child?: any;
 	className?: string;
@@ -27,7 +27,9 @@ const Buttons = (props: ButtonsProps) => {
 	function signInWithGoogle() {
 		const provider = new GoogleAuthProvider();
 		signInWithPopup(auth, provider)
-			.then(() => {})
+			.then(() => {
+				props.setErrors('');
+			})
 			.catch((error) => {
 				const code = error.code;
 				console.warn(code);
@@ -39,8 +41,12 @@ const Buttons = (props: ButtonsProps) => {
 		return (
 			<div>
 				<button
-					// @ts-ignore
-					onClick={() => props.setStateRef(!props.stateRef)}
+					onClick={() =>
+						// @ts-ignore
+						props.setConfirmationStateRef(
+							!props.confirmationStateRef
+						)
+					}
 					className={`${props.className} ${styles.button} ${styles.logout}`}
 				>
 					{props.child}

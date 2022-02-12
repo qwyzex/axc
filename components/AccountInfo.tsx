@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useState } from 'react';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
+import FloatingAlert from './FloatingAlert';
 
 const AccountInfo = ({ close }: any) => {
 	const [user]: any = useAuthState(auth);
@@ -17,6 +18,7 @@ const AccountInfo = ({ close }: any) => {
 
 	return (
 		<>
+			<FloatingAlert message={componentError} level={'error'} />
 			<Overlay blur={true} />
 			<div className={`popup ${styles.container}`}>
 				<header>
@@ -39,8 +41,8 @@ const AccountInfo = ({ close }: any) => {
 					<Buttons
 						className={styles.logOutButton}
 						setErrors={setComponentError}
-						stateRef={confirmLogOut}
-						setStateRef={setConfirmLogOut}
+						confirmationStateRef={confirmLogOut}
+						setConfirmationStateRef={setConfirmLogOut}
 					/>
 				</div>
 			</div>

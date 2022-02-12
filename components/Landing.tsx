@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { SpinnerDotted } from 'spinners-react';
 
 import styles from '../styles/Landing.module.sass';
 import AnchorButton from './AnchorButton';
 import Buttons from './Buttons';
 import { SVGTimeReverse } from './Svg';
 import { ChangelogDataprops } from './Changelog';
+import Loading from './Loading';
+import FloatingAlert from './FloatingAlert';
 
 const Landing = () => {
 	const [changelogData, setChangelogdata] = useState([]);
@@ -17,13 +18,16 @@ const Landing = () => {
 			const res: Response = await fetch('/api/changelog');
 			const data = await res.json();
 
-			setChangelogdata(data);
+			setTimeout(() => {
+				setChangelogdata(data);
+			}, 1000);
 		}
 		fetchChangelog();
 	}, []);
 
 	return (
 		<>
+			<FloatingAlert message={landingError} level={'warn'} />
 			<div className={`landing ${styles.container}`}>
 				<main>
 					<header className={styles.header}>
@@ -62,6 +66,8 @@ const Landing = () => {
 							<Buttons
 								signInText="SIGN IN NOW"
 								setErrors={setLandingError}
+								setConfirmationStateRef={() => {}}
+								confirmationStateRef={false}
 								bold
 								col
 							/>
@@ -96,7 +102,7 @@ const Landing = () => {
 						<h2>CHANGELOG</h2>
 					</div>
 					<ul>
-						{changelogData ? (
+						{changelogData.length ? (
 							changelogData
 								.slice(0, 3)
 								.map((c: ChangelogDataprops) => (
@@ -120,7 +126,8 @@ const Landing = () => {
 									</li>
 								))
 						) : (
-							<SpinnerDotted />
+							<Loading color="#ffffff" />
+							// <h1>Loading...</h1>
 						)}
 					</ul>
 					<Link href={'/changelog'}>

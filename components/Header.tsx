@@ -105,8 +105,8 @@ export default function Header() {
 							<Buttons
 								className={styles.logOutButton}
 								child={user ? <SVGLogOut /> : <SVGLogIn />}
-								setStateRef={setConfirmLogOut}
-								stateRef={confirmLogOut}
+								setConfirmationStateRef={setConfirmLogOut}
+								confirmationStateRef={confirmLogOut}
 								setErrors={setAuthError}
 							/>
 						</li>
@@ -118,11 +118,7 @@ export default function Header() {
 
 	return (
 		<>
-			<FloatingAlert
-				message={authError}
-				stateVar={authError}
-				level={'error'}
-			/>
+			<FloatingAlert message={authError} level={'error'} />
 			<header className={styles.header}>
 				<div className={styles.appName}>
 					<h1>AXC</h1>
