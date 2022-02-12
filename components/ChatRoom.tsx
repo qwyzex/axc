@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { db, auth } from '../firebase';
-import styles from '../styles/ChatRoom.module.sass';
 import {
 	collection,
 	orderBy,
@@ -16,10 +15,11 @@ import {
 } from 'firebase/firestore';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import Confirmation from './Confirmation';
-import { SpinnerDiamond } from 'spinners-react';
 import { Data } from 'react-firebase-hooks/firestore/dist/firestore/types';
 import firerr from 'firerr';
+
+import styles from '../styles/ChatRoom.module.sass';
+import Confirmation from './Confirmation';
 import Loading from './Loading';
 import FloatingAlert from './FloatingAlert';
 
