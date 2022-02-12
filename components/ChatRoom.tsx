@@ -20,7 +20,6 @@ import firerr from 'firerr';
 
 import styles from '../styles/ChatRoom.module.sass';
 import Confirmation from './Confirmation';
-import Loading from './Loading';
 import FloatingAlert from './FloatingAlert';
 
 const ChatRoom = () => {
@@ -92,11 +91,6 @@ const ChatRoom = () => {
 					{loading ? (
 						<>
 							<h3>RETRIEVING DATA...</h3>
-							<Loading
-								thickness={350}
-								color={'var(--blue)'}
-								secColor={'#1c62e420'}
-							/>
 						</>
 					) : (
 						messages &&
