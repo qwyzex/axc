@@ -9,21 +9,21 @@ import { auth } from '../firebase';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const Index: NextPage = () => {
-	const [user] = useAuthState(auth);
-	const [firebaseData, setFirebaseData] = useState(false);
-	const [loadingOut, setLoadingOut] = useState(false);
+	const [finishLoading, setFinishLoading] = useState(false);
+	const [activePage, setActivePage] = useState('loading');
 
-	setTimeout(() => {
-		setFirebaseData(true);
-	}, 600);
-
-	if (firebaseData) {
-		setTimeout(() => {
-			setLoadingOut(true);
-		}, 1200);
-	}
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
+			setActivePage('chatroom');
+			setFinishLoading(true);
+		} else {
+			setActivePage('landing');
+			setFinishLoading(true);
+		}
+	});
 
 	return (
 		<>
@@ -35,22 +35,24 @@ const Index: NextPage = () => {
 			</Head>
 			<Header />
 			<main
-				className={`mainRoot ${firebaseData && 'fetchedRoot'} ${
-					!user && 'displayLanding'
-				}`}
+				className={`mainRoot ${
+					activePage === 'landing' ? 'landingPage' : 'chatroomPage'
+				} ${finishLoading ? 'finishLoading' : ''}`}
 			>
-				{firebaseData ? user ? <ChatRoom /> : <Landing /> : null}
-				{!loadingOut && (
-					<SpinnerDotted
-						color="#ff003c"
-						thickness={150}
-						size={75}
-						speed={140}
-						className={`loadingSpinner ${
-							firebaseData && 'leaveAnimation'
-						}`}
-					/>
+				{activePage === 'landing' ? (
+					<Landing />
+				) : activePage === 'chatroom' ? (
+					<ChatRoom />
+				) : (
+					''
 				)}
+				<SpinnerDotted
+					color="#ff003c"
+					thickness={150}
+					size={75}
+					speed={140}
+					className={`loadingSpinner`}
+				/>
 			</main>
 		</>
 	);
