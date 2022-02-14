@@ -81,7 +81,7 @@ const ChatRoom = () => {
 	return (
 		<>
 			<FloatingAlert level="error" message={chatError} />
-			<div className={styles.chatRoom}>
+			<div className={`chatRoom ${styles.chatRoom}`}>
 				<ul
 					className={`${styles.messageContainer} ${
 						loading && styles.loading
