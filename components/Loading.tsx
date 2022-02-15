@@ -13,7 +13,7 @@ const Loading = (props: LoadingProps) => {
 			thickness={props.thickness ? props.thickness : 250}
 			size={props.size ? props.size : 50}
 			color={props.color ? props.color : 'var(--blue)'}
-			secondaryColor={props.secColor ? props.secColor : '#e8e8e8'}
+			secondaryColor={props.secColor ? props.secColor : '#e8e8e830'}
 		/>
 	);
 };
