@@ -21,8 +21,9 @@ import {
 	SVGTimeReverse,
 } from './Svg';
 import FloatingAlert from './FloatingAlert';
+import { ChatRoomProps } from './ChatRoom';
 
-export default function Header() {
+export default function Header({ userData }: ChatRoomProps) {
 	const [user] = useAuthState(auth);
 	const [authError, setAuthError] = useState('');
 
@@ -38,6 +39,7 @@ export default function Header() {
 				)}
 				{openAccountInfo && (
 					<AccountInfo
+						userData={userData}
 						close={() => setOpenAccountInfo(!openAccountInfo)}
 					/>
 				)}

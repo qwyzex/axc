@@ -10,8 +10,9 @@ import Header from '../components/Header';
 import ChangeLog from '../components/Changelog';
 import { SVGTimeReverse } from '../components/Svg';
 import { SpinnerDiamond } from 'spinners-react';
+import { NextPage } from 'next';
 
-const ChangeLogPage = () => {
+const ChangeLogPage: NextPage = () => {
 	const [user] = useAuthState(auth);
 
 	const [changelogData, setChangelogdata] = useState(null);
