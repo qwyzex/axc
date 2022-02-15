@@ -11,11 +11,18 @@ import ChangeLog from '../components/Changelog';
 import { SVGTimeReverse } from '../components/Svg';
 import { SpinnerDiamond } from 'spinners-react';
 import { NextPage } from 'next';
+import { getUserData } from '../functions';
+import { DocumentData } from 'firebase/firestore';
 
 const ChangeLogPage: NextPage = () => {
 	const [user] = useAuthState(auth);
 
 	const [changelogData, setChangelogdata] = useState(null);
+	const [userData, setUserData] = useState<DocumentData>({});
+
+	useEffect(() => {
+		getUserData(setUserData);
+	}, [userData]);
 
 	useEffect(() => {
 		async function fetchChangelog() {
@@ -33,7 +40,7 @@ const ChangeLogPage: NextPage = () => {
 				<title>App Changelog</title>
 				<meta name="descripton" content="AXC Life Changelog"></meta>
 			</Head>
-			<Header />
+			<Header userData={userData} />
 			<main className={styles.container}>
 				<Link href="/">
 					{user ? '<< Back To Chatroom' : '<< Back To Homepage'}
