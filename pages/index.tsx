@@ -12,7 +12,6 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import AuthForm from '../components/AuthForm';
 import {
-	addDoc,
 	collection,
 	CollectionReference,
 	doc,
@@ -21,9 +20,7 @@ import {
 	DocumentSnapshot,
 	getDoc,
 	setDoc,
-	updateDoc,
 } from 'firebase/firestore';
-import { CustomError } from '../functions';
 import FloatingAlert from '../components/FloatingAlert';
 
 const Index: NextPage = () => {

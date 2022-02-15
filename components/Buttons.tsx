@@ -31,8 +31,7 @@ const Buttons = (props: ButtonsProps) => {
 				props.setErrors('');
 			})
 			.catch((error) => {
-				const code = error.code;
-				console.warn(code);
+				const code: string = error.code;
 				firerr(code, props.setErrors);
 			});
 	}
@@ -50,7 +49,9 @@ const Buttons = (props: ButtonsProps) => {
 					className={`${props.className} ${styles.button} ${styles.logout}`}
 				>
 					{props.child}
-					<p>{props.signOutText ? props.signOutText : 'Sign Out'}</p>
+					<p style={{ fontWeight: props.bold ? 'bold' : 'normal' }}>
+						{props.signOutText ? props.signOutText : 'Sign Out'}
+					</p>
 				</button>
 			</div>
 		);

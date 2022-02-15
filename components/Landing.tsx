@@ -3,7 +3,6 @@ import Link from 'next/link';
 
 import styles from '../styles/Landing.module.sass';
 import AnchorButton from './AnchorButton';
-import Buttons from './Buttons';
 import { SVGTimeReverse } from './Svg';
 import { ChangelogDataprops } from './Changelog';
 import Loading from './Loading';
