@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import styles from '../styles/Landing.module.sass';
@@ -9,7 +9,11 @@ import { ChangelogDataprops } from './Changelog';
 import Loading from './Loading';
 import FloatingAlert from './FloatingAlert';
 
-const Landing = () => {
+export interface LandingProps {
+	setActivePage: Dispatch<SetStateAction<string>>;
+}
+
+const Landing = ({ setActivePage }: LandingProps) => {
 	const [changelogData, setChangelogdata] = useState([]);
 	const [landingError, setLandingError] = useState('');
 
@@ -63,21 +67,24 @@ const Landing = () => {
 							</p>
 						</article>
 						<div className={styles.buttonsWrapper}>
-							<Buttons
+							<button onClick={() => setActivePage('signin')}>
+								SIGN IN NOW
+							</button>
+							{/* <Buttons
 								signInText="SIGN IN NOW"
 								setErrors={setLandingError}
 								setConfirmationStateRef={() => {}}
 								confirmationStateRef={false}
 								bold
 								col
-							/>
+							/> */}
 							<AnchorButton
 								to="https://github.com/qwyzex/axc"
 								newtab
 								text="Source Code"
 								color="260"
 								dark
-								invertHover
+								invertClick
 								bold
 								thickness={4}
 								shadowHover
@@ -88,7 +95,7 @@ const Landing = () => {
 								text="Follow me on Twitter"
 								color="200"
 								dark
-								invertHover
+								invertClick
 								bold
 								thickness={4}
 								shadowHover
@@ -107,9 +114,9 @@ const Landing = () => {
 								.slice(0, 3)
 								.map((c: ChangelogDataprops) => (
 									<li key={c.version}>
-										<a href={`/changelog#${c.version}`}>
-											<span></span>
-										</a>
+										<Link href={`/changelog#${c.version}`}>
+											<a></a>
+										</Link>
 										<h3 key={c.version}>{c.version}</h3>
 										<p
 											key={c.date}

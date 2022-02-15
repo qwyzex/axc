@@ -6,12 +6,18 @@ import Overlay from './Overlay';
 import Buttons from './Buttons';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import FloatingAlert from './FloatingAlert';
+import { DocumentData } from 'firebase/firestore';
 
-const AccountInfo = ({ close }: any) => {
+export interface AccountInfo {
+	close: () => Dispatch<SetStateAction<any>> | void;
+	userData: DocumentData;
+}
+
+const AccountInfo = ({ close, userData }: AccountInfo) => {
 	const [user]: any = useAuthState(auth);
 	const [confirmLogOut, setConfirmLogOut] = useState(false);
 	const [componentError, setComponentError] = useState('');
@@ -27,16 +33,18 @@ const AccountInfo = ({ close }: any) => {
 				</header>
 				<div>
 					<img
-						src={user!.photoURL}
-						alt={`${user!.displayName}'s Profile Picture`}
+						src={userData && userData.photoURL}
+						alt={`${
+							userData && userData.displayName
+						}'s Profile Picture`}
 					/>
 					<div>
 						<label className="cascade">username</label>
-						<h3>{user!.displayName}</h3>
+						<h3>{userData && userData.displayName}</h3>
 					</div>
 					<div>
 						<label className="cascade">email</label>
-						<p>{user!.email}</p>
+						<p>{userData && userData.email}</p>
 					</div>
 					<Buttons
 						className={styles.logOutButton}

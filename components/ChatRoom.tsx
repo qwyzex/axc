@@ -22,7 +22,11 @@ import styles from '../styles/ChatRoom.module.sass';
 import Confirmation from './Confirmation';
 import FloatingAlert from './FloatingAlert';
 
-const ChatRoom = () => {
+export interface ChatRoomProps {
+	userData: DocumentData;
+}
+
+const ChatRoom = ({ userData }: ChatRoomProps) => {
 	const scrollDummy: any = useRef();
 	const [loading, setLoading] = useState(true);
 	const [chatError, setChatError] = useState('');
@@ -42,7 +46,7 @@ const ChatRoom = () => {
 
 	async function sendMessage(e: any) {
 		e.preventDefault();
-		const { uid, photoURL, displayName }: string | any = auth.currentUser;
+		const { uid, photoURL, displayName }: string | any = userData;
 		await addDoc(messagesRef, {
 			text: Buffer.from(formValue, 'utf8').toString('base64'),
 			createdAt: serverTimestamp(),
