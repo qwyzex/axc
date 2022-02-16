@@ -1,4 +1,4 @@
-.container 
+.container
     --l: 50%
     --initial: hsl(var(--color), 90%, calc( var(--l) - 8% ))
     --hover: hsl(var(--color), 100%, calc( var(--l) + 4% ))
@@ -17,6 +17,9 @@
 
     outline-style: solid
     transition: .3s ease
+
+    &.fullWitdh
+        width: 100%
 
     &.shadow
         box-shadow: 0 3px 6px #20202080
@@ -50,16 +53,15 @@
             outline-color: transparent !important
         &:active
             background-color: var(--initial) !important
-            
+
     &.primary
         &:not(:hover)
             outline-color: transparent !important
         &:not(:active)
             outline-color: transparent !important
-            
+
         &:hover
             background-color: var(--hover) !important
         &:active
             background-color: var(--click) !important
             outline-color: var(--outline) !important
-            

@@ -1,15 +1,14 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Link from 'next/link';
 
-import styles from '../styles/Landing.module.sass';
-import AnchorButton from './AnchorButton';
-import { SVGTimeReverse } from './Svg';
+import styles from '/styles/Landing.module.sass';
+import { AnchorButton, SVG, Loading, FloatingAlert } from '..';
 import { ChangelogDataprops } from './Changelog';
-import Loading from './Loading';
-import FloatingAlert from './FloatingAlert';
+import { Button } from '@mantine/core';
+import { IndexTypes } from 'pages';
 
 export interface LandingProps {
-	setActivePage: Dispatch<SetStateAction<string>>;
+	setActivePage: Dispatch<SetStateAction<IndexTypes['activePage']>>;
 }
 
 const Landing = ({ setActivePage }: LandingProps) => {
@@ -66,45 +65,42 @@ const Landing = ({ setActivePage }: LandingProps) => {
 							</p>
 						</article>
 						<div className={styles.buttonsWrapper}>
-							<button onClick={() => setActivePage('signin')}>
-								SIGN IN NOW
+							<button
+								className="global inf"
+								onClick={() => setActivePage('signIn')}
+							>
+								SIGN IN NOW {' >>'}
 							</button>
-							{/* <Buttons
-								signInText="SIGN IN NOW"
-								setErrors={setLandingError}
-								setConfirmationStateRef={() => {}}
-								confirmationStateRef={false}
-								bold
-								col
-							/> */}
 							<AnchorButton
 								to="https://github.com/qwyzex/axc"
 								newtab
-								text="Source Code"
 								color="260"
 								dark
 								invertClick
 								bold
 								thickness={4}
 								shadowHover
-							/>
+							>
+								Source Code
+							</AnchorButton>
 							<AnchorButton
 								to="https://twitter.com/qwyzex"
 								newtab
-								text="Follow me on Twitter"
 								color="200"
 								dark
 								invertClick
 								bold
 								thickness={4}
 								shadowHover
-							/>
+							>
+								Follow me on Twitter
+							</AnchorButton>
 						</div>
 					</div>
 				</main>
 				<aside className={styles.changeLogContainer}>
 					<div>
-						<SVGTimeReverse />
+						<SVG.TimeReverse />
 						<h2>CHANGELOG</h2>
 					</div>
 					<ul>

@@ -1,4 +1,4 @@
-import styles from '../styles/Overlay.module.sass';
+import styles from '/styles/Overlay.module.sass';
 
 const Overlay = ({ blur }: any) => {
 	return (

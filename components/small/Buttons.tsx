@@ -1,11 +1,16 @@
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase';
-import styles from '../styles/Buttons.module.sass';
+import { auth } from '../../firebase';
+import styles from '/styles/Buttons.module.sass';
 import firerr from 'firerr';
 import { Dispatch, SetStateAction } from 'react';
 
+import { useModals } from '@mantine/modals';
+
 export interface ButtonsProps {
+	setActivePage: Dispatch<
+		SetStateAction<'landing' | 'chatRoom' | 'signIn' | 'loading'>
+	>;
 	setErrors: Dispatch<SetStateAction<string>>;
 	setConfirmationStateRef: Dispatch<SetStateAction<boolean>> | void;
 	confirmationStateRef: boolean;
@@ -23,6 +28,18 @@ export interface ButtonsProps {
 
 const Buttons = (props: ButtonsProps) => {
 	const [user] = useAuthState(auth);
+	const modals = useModals();
+
+	const signOutModal = () => {
+		modals.openConfirmModal({
+			title: 'Are You Sure You Want To Sign Out?',
+			labels: { confirm: 'Confirm', cancel: 'Cancel' },
+			onConfirm: () => {
+				props.setActivePage('landing');
+				signOut(auth);
+			},
+		});
+	};
 
 	function signInWithGoogle() {
 		const provider = new GoogleAuthProvider();
@@ -40,12 +57,7 @@ const Buttons = (props: ButtonsProps) => {
 		return (
 			<div>
 				<button
-					onClick={() =>
-						// @ts-ignore
-						props.setConfirmationStateRef(
-							!props.confirmationStateRef
-						)
-					}
+					onClick={signOutModal}
 					className={`${props.className} ${styles.button} ${styles.logout}`}
 				>
 					{props.child}
@@ -58,7 +70,7 @@ const Buttons = (props: ButtonsProps) => {
 	} else {
 		return (
 			<button
-				onClick={signInWithGoogle}
+				onClick={() => props.setActivePage('signIn')}
 				className={`${props.className} ${styles.button} ${
 					styles.login
 				} ${props.col && styles.col}`}

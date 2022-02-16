@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 interface FeatureType {
-	name?: string;
+	name: string;
 	description?: string;
 }
 
@@ -43,7 +43,6 @@ const data: ChangelogDataType[] = [
 			},
 			{
 				name: 'Custom Confirmation Block',
-				description: '',
 			},
 		],
 	},

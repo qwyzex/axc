@@ -1,5 +1,5 @@
-import Overlay from './Overlay';
-import styles from '../styles/Confirmation.module.sass';
+import { Overlay } from '..';
+import styles from '/styles/Confirmation.module.sass';
 import { Dispatch, SetStateAction } from 'react';
 
 export interface ConfirmationProps {

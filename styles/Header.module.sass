@@ -2,7 +2,7 @@
     justify-content: flex-start
     align-items: center
     gap: .8em
-        
+
 .header
     display: flex
     justify-content: space-between
@@ -33,8 +33,8 @@
 
     &:focus-within
         ul
-            visibility: visible
-            opacity: 1
+            visibility: visible !important
+            opacity: 1 !important
 
 .headerDropdownButton
     border-radius: .3rem
@@ -42,8 +42,6 @@
     outline: 2px solid #00000000
     background-color: transparent
     padding: .4em
-
-
 
 .listContainer
     // visibility: visible
@@ -64,7 +62,7 @@
     z-index: 8
     overflow: hidden
 
-    li 
+    li
         background-color: #ffffff
         list-style: none
         padding: .5em
@@ -75,11 +73,11 @@
             margin-block: 1px solid #202020
 
         &:not(:last-of-type)
-            &:hover 
+            &:hover
                 background-color: #f2f2f2
             &:active
                 background-color: #e3dce3
-            
+
         a, button
             border: none
             width: 100%
@@ -93,7 +91,7 @@
 
             text-decoration: none
             color: #202020
-        
+
         .logOutButton
             width: 100%
             color: white

@@ -1,9 +1,9 @@
-import { SVGClose } from './Svg';
+import { SVG } from '..';
 
 const CloseButton = ({ event }: any) => {
 	return (
 		<button onClick={event}>
-			<SVGClose />
+			<SVG.Close />
 		</button>
 	);
 };

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { SpinnerCircular } from 'spinners-react';
-import styles from '../styles/ChangeLog.module.sass';
-import Hr from './Hr';
+import styles from '/styles/ChangeLog.module.sass';
+import { Hr } from '..';
 
 export interface ChangelogDataprops {
 	version: string;

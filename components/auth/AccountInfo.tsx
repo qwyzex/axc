@@ -1,20 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import styles from '../styles/AccountInfo.module.sass';
-import Confirmation from './Confirmation';
-import CloseButton from './CloseButton';
-import Overlay from './Overlay';
-import Buttons from './Buttons';
+import styles from '/styles/AccountInfo.module.sass';
+import { Confirmation, CloseButton, Overlay, Buttons, FloatingAlert } from '..';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { auth } from '../firebase';
+import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
-import FloatingAlert from './FloatingAlert';
 import { DocumentData } from 'firebase/firestore';
 
 export interface AccountInfo {
 	close: () => Dispatch<SetStateAction<any>> | void;
-	userData: DocumentData;
+	userData: DocumentData | null;
 }
 
 const AccountInfo = ({ close, userData }: AccountInfo) => {

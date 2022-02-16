@@ -1,4 +1,4 @@
-export function SVGDollar() {
+export function Dollar() {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +11,7 @@ export function SVGDollar() {
 	);
 }
 
-export function SVGInfo() {
+export function Info() {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +24,7 @@ export function SVGInfo() {
 	);
 }
 
-export function SVGLogOut() {
+export function LogOut() {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ export function SVGLogOut() {
 	);
 }
 
-export function SVGMenu() {
+export function Menu() {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@ export function SVGMenu() {
 	);
 }
 
-export function SVGLogIn() {
+export function LogIn() {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@ export function SVGLogIn() {
 	);
 }
 
-export function SVGClose() {
+export function Close() {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,7 @@ export function SVGClose() {
 	);
 }
 
-export function SVGAccount() {
+export function Account() {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@ export function SVGAccount() {
 	);
 }
 
-export function SVGBug() {
+export function Bug() {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@ export function SVGBug() {
 	);
 }
 
-export function SVGTimeReverse() {
+export function TimeReverse() {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -116,15 +116,15 @@ export function SVGTimeReverse() {
 }
 
 const SVG = {
-	SVGDollar,
-	SVGInfo,
-	SVGLogOut,
-	SVGMenu,
-	SVGLogIn,
-	SVGClose,
-	SVGAccount,
-	SVGBug,
-	SVGTimeReverse,
+	Dollar,
+	Info,
+	LogOut,
+	Menu,
+	LogIn,
+	Close,
+	Account,
+	Bug,
+	TimeReverse,
 };
 
 export default SVG;

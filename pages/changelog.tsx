@@ -4,11 +4,9 @@ import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '../firebase';
-import styles from '../styles/ChangelogPage.module.sass';
+import styles from '/styles/ChangelogPage.module.sass';
 
-import Header from '../components/Header';
-import ChangeLog from '../components/Changelog';
-import { SVGTimeReverse } from '../components/Svg';
+import { SVG, Header, ChangeLog } from '../components';
 import { SpinnerDiamond } from 'spinners-react';
 import { NextPage } from 'next';
 import { getUserData } from '../functions';
@@ -46,7 +44,7 @@ const ChangeLogPage: NextPage = () => {
 					{user ? '<< Back To Chatroom' : '<< Back To Homepage'}
 				</Link>
 				<div>
-					<SVGTimeReverse />
+					<SVG.TimeReverse />
 					<h1>Changelog</h1>
 				</div>
 				{changelogData ? <ChangeLog /> : <SpinnerDiamond />}
