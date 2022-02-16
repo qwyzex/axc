@@ -37,11 +37,13 @@ export const getUserData = (
 	setUserDataVariables: Dispatch<SetStateAction<DocumentData>>
 ) => {
 	onAuthStateChanged(auth, async (user) => {
-		const usersRef: CollectionReference = collection(db, 'users');
-		const docRef: DocumentReference = doc(usersRef, user!.uid);
-		const docSnap: DocumentSnapshot = await getDoc(docRef);
+		if (user) {
+			const usersRef: CollectionReference = collection(db, 'users');
+			const docRef: DocumentReference = doc(usersRef, user!.uid);
+			const docSnap: DocumentSnapshot = await getDoc(docRef);
 
-		// @ts-ignore
-		setUserDataVariables(docSnap.data());
+			// @ts-ignore
+			setUserDataVariables(docSnap.data());
+		}
 	});
 };
