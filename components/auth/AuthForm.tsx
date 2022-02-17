@@ -1,16 +1,26 @@
 import styles from '/styles/AuthForm.module.sass';
 import { IndexTypes } from '../../pages';
-import { Dispatch, SetStateAction, useState } from 'react';
-import { Buttons, ResetPasswordForm, SignInForm, SignUpForm } from '..';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { ResetPasswordForm, SignInForm, SignUpForm } from '..';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../firebase';
+import { useNotifications } from '@mantine/notifications';
 
 export interface AuthFormProps {
+	activePage: IndexTypes['activePage'];
 	setActivePage: Dispatch<SetStateAction<IndexTypes['activePage']>>;
 }
 
 export default function AuthForm(props: AuthFormProps) {
 	const [activeTab, setActiveTab] = useState('signIn');
+	const notif = useNotifications();
+
+	useEffect(() => {
+		if (props.activePage !== 'signIn') {
+			notif.clean();
+		}
+		// eslint-disable-next-line
+	}, [props.activePage]);
 
 	return (
 		<div className={styles.container}>
