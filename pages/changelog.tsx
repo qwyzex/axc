@@ -38,7 +38,7 @@ const ChangeLogPage: NextPage = () => {
 				<title>App Changelog</title>
 				<meta name="descripton" content="AXC Life Changelog"></meta>
 			</Head>
-			<Header userData={userData} />
+			<Header userData={userData} setActivePage={() => {}} />
 			<main className={styles.container}>
 				<Link href="/">
 					{user ? '<< Back To Chatroom' : '<< Back To Homepage'}

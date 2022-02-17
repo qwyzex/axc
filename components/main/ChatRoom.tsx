@@ -27,7 +27,7 @@ export interface ChatRoomProps {
 	userData: DocumentData | null;
 	setActivePage: Dispatch<
 		SetStateAction<'landing' | 'chatRoom' | 'signIn' | 'loading'>
-	>;
+	> | void;
 }
 
 const ChatRoom = ({ userData, setActivePage }: ChatRoomProps) => {

@@ -1,9 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
+import { ChatRoomProps } from '../main/ChatRoom';
 
 export interface ButtonsProps {
-	setActivePage: Dispatch<
-		SetStateAction<'landing' | 'chatRoom' | 'signIn' | 'loading'>
-	>;
+	setActivePage: ChatRoomProps['setActivePage'];
 
 	child?: any;
 	className?: string;
