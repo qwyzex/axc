@@ -2,12 +2,14 @@ import '../styles/globals.sass';
 import type { AppProps } from 'next/app';
 
 import { ContextModalProps, ModalsProvider } from '@mantine/modals';
-import { Text, Button, MantineProvider } from '@mantine/core';
+import { Text, Button, MantineProvider, Divider } from '@mantine/core';
 import { AnchorButton } from '../components';
 import { NotificationsProvider } from '@mantine/notifications';
+import AccountInfo from '~//mantine/AccountInfo';
 
 const appInfoModal = ({ context, id }: ContextModalProps) => (
 	<>
+		<Divider />
 		<h1>AXC</h1>
 		<article>
 			<Text>
@@ -37,6 +39,8 @@ const appInfoModal = ({ context, id }: ContextModalProps) => (
 				voluptate aute cillum
 			</Text>
 		</article>
+		<br />
+		<Divider />
 		<br />
 		<footer
 			style={{
@@ -77,7 +81,11 @@ function AXC({ Component, pageProps }: AppProps) {
 	return (
 		<MantineProvider>
 			<NotificationsProvider>
-				<ModalsProvider modals={{ appInfo: appInfoModal }}>
+				<ModalsProvider
+					modals={{
+						appInfo: appInfoModal,
+					}}
+				>
 					<Component {...pageProps} />
 				</ModalsProvider>
 			</NotificationsProvider>
