@@ -1,5 +1,4 @@
 // auth
-import AccountInfo from './auth/AccountInfo';
 import AuthForm from './auth/AuthForm';
 import ResetPasswordForm from './auth/ResetPasswordForm';
 import SignInForm from './auth/SignInForm';
@@ -17,13 +16,17 @@ import AppInfo from './main/AppInfo';
 
 // small
 import AnchorButton from './small/AnchorButton';
-import Buttons from './small/Buttons';
+import ButtonSignIn from './small/ButtonSignIn';
+import ButtonSignOut from './small/ButtonSignOut';
 import CloseButton from './small/CloseButton';
 import Confirmation from './small/Confirmation';
 import FloatingAlert from './small/FloatingAlert';
 import Hr from './small/Hr';
 import Loading from './small/Loading';
 import Overlay from './small/Overlay';
+
+// mantine components
+import AccountInfo from './mantine/AccountInfo';
 
 export {
 	AccountInfo,
@@ -38,7 +41,8 @@ export {
 	ChatRoom,
 	AppInfo,
 	AnchorButton,
-	Buttons,
+	ButtonSignIn,
+	ButtonSignOut,
 	CloseButton,
 	Confirmation,
 	FloatingAlert,

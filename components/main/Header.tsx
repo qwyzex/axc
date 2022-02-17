@@ -6,10 +6,8 @@ import { signOut } from 'firebase/auth';
 import Link from 'next/link';
 
 import {
-	Buttons,
 	AppInfo,
 	Confirmation,
-	AccountInfo,
 	SVG,
 	FloatingAlert,
 	ChatRoom,
@@ -20,6 +18,9 @@ import styles from '/styles/Header.module.sass';
 import { ChatRoomProps } from './ChatRoom';
 import { useModals } from '@mantine/modals';
 import { Anchor } from '@mantine/core';
+import ButtonSignOut from '../small/ButtonSignOut';
+import ButtonSignIn from '../small/ButtonSignIn';
+import AccountInfo from '../mantine/AccountInfo';
 
 export default function Header({ userData, setActivePage }: ChatRoomProps) {
 	const [user] = useAuthState(auth);
@@ -38,28 +39,6 @@ export default function Header({ userData, setActivePage }: ChatRoomProps) {
 					<h1>AXC</h1>
 				</div>
 				<div>
-					{openAppInfo && (
-						<AppInfo close={() => setOpenAppInfo(!openAppInfo)} />
-					)}
-					{openAccountInfo && (
-						<AccountInfo
-							userData={userData}
-							close={() => setOpenAccountInfo(!openAccountInfo)}
-						/>
-					)}
-					{confirmLogOut && (
-						<Confirmation
-							title="Are You Sure You Want To Sign Out?"
-							event={() => {
-								signOut(auth);
-								setConfirmLogOut(!confirmLogOut);
-							}}
-							setStateRef={
-								confirmLogOut ? setConfirmLogOut : () => {}
-							}
-							stateRef={confirmLogOut ? confirmLogOut : false}
-						/>
-					)}
 					<div className={styles.headerDropdownWrapper}>
 						<button
 							className={styles.headerDropdownButton}
@@ -73,7 +52,19 @@ export default function Header({ userData, setActivePage }: ChatRoomProps) {
 								<li className={styles.listItem}>
 									<button
 										onClick={() =>
-											setOpenAccountInfo(!openAccountInfo)
+											modals.openModal({
+												title: 'Account Information',
+												centered: true,
+												closeOnEscape: true,
+												children: (
+													<AccountInfo
+														userData={userData}
+														setActivePage={
+															setActivePage
+														}
+													/>
+												),
+											})
 										}
 									>
 										<SVG.Account />
@@ -116,16 +107,15 @@ export default function Header({ userData, setActivePage }: ChatRoomProps) {
 								</a>
 							</li>
 							<li className={styles.listItem}>
-								<Buttons
-									className={styles.logOutButton}
-									child={
-										user ? <SVG.LogOut /> : <SVG.LogIn />
-									}
-									setConfirmationStateRef={setConfirmLogOut}
-									confirmationStateRef={confirmLogOut}
-									setErrors={setAuthError}
-									setActivePage={setActivePage}
-								/>
+								{user ? (
+									<ButtonSignOut
+										setActivePage={setActivePage}
+									/>
+								) : (
+									<ButtonSignIn
+										setActivePage={setActivePage}
+									/>
+								)}
 							</li>
 						</ul>
 					</div>
