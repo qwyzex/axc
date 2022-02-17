@@ -108,7 +108,10 @@ const Index: NextPage = () => {
 						userData={userData}
 					/>
 				) : activePage === 'signIn' ? (
-					<AuthForm setActivePage={setActivePage} />
+					<AuthForm
+						activePage={activePage}
+						setActivePage={setActivePage}
+					/>
 				) : null}
 				<SpinnerDotted
 					color="#ff003c"
