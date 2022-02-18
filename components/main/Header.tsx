@@ -27,10 +27,6 @@ export default function Header({ userData, setActivePage }: ChatRoomProps) {
 	const [authError, setAuthError] = useState('');
 	const modals = useModals();
 
-	const [openAppInfo, setOpenAppInfo] = useState(false);
-	const [openAccountInfo, setOpenAccountInfo] = useState(false);
-	const [confirmLogOut, setConfirmLogOut] = useState(false);
-
 	return (
 		<>
 			<FloatingAlert message={authError} level={'error'} />

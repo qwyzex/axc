@@ -1,4 +1,5 @@
 // imports
+import { useNotifications } from '@mantine/notifications';
 import { onAuthStateChanged } from 'firebase/auth';
 import {
 	collection,
@@ -9,6 +10,7 @@ import {
 	DocumentSnapshot,
 	getDoc,
 } from 'firebase/firestore';
+import Router from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 import { auth, db } from '../firebase';
 
@@ -28,6 +30,10 @@ export const CustomError = function (
 	this.message = message;
 };
 CustomError.prototype = new Error();
+
+export function redirect(href: string) {
+	Router.replace(href);
+}
 
 /**
  * Returns the user's data from the database.

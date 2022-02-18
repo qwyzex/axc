@@ -22,12 +22,11 @@ import firerr from 'firerr';
 import styles from '/styles/ChatRoom.module.sass';
 import { Confirmation, FloatingAlert } from '..';
 import { onAuthStateChanged, User } from 'firebase/auth';
+import { IndexTypes } from 'pages';
 
 export interface ChatRoomProps {
 	userData: DocumentData | null;
-	setActivePage: Dispatch<
-		SetStateAction<'landing' | 'chatRoom' | 'signIn' | 'loading'>
-	> | void;
+	setActivePage?: IndexTypes['setActivePage'];
 }
 
 const ChatRoom = ({ userData, setActivePage }: ChatRoomProps) => {
