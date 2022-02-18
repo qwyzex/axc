@@ -3,18 +3,44 @@ import styles from '../../styles/Buttons.module.sass';
 import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
 import { useModals } from '@mantine/modals';
+import Router from 'next/router';
 
 const ButtonSignOut = (props: ButtonsProps) => {
 	const modals = useModals();
 
 	const signOutModal = () => {
-		modals.openConfirmModal({
+		modals.openModal({
 			title: 'Are You Sure You Want To Sign Out?',
-			labels: { confirm: 'Confirm', cancel: 'Cancel' },
-			onConfirm: () => {
-				props.setActivePage('landing');
-				signOut(auth);
-			},
+			hideCloseButton: true,
+			children: (
+				<form
+					onSubmit={(e: any) => {
+						e.preventDefault();
+						if (Router.pathname.match(/^\/$/)) {
+							props.setActivePage!('landing');
+							signOut(auth);
+							modals.closeAll();
+						} else {
+							signOut(auth);
+							modals.closeAll();
+						}
+					}}
+					style={{
+						display: 'flex',
+						gap: '1rem',
+					}}
+				>
+					<button type="submit" className="global err" autoFocus>
+						YES
+					</button>
+					<input
+						type="button"
+						className="global"
+						onClick={() => modals.closeAll()}
+						value="CANCEL"
+					/>
+				</form>
+			),
 		});
 	};
 
