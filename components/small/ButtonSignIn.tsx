@@ -1,10 +1,17 @@
+import Router from 'next/router';
 import styles from '../../styles/Buttons.module.sass';
 import { ButtonsProps } from './Buttons';
 
 const ButtonSignIn = (props: ButtonsProps) => {
 	return (
 		<button
-			onClick={() => props.setActivePage('signIn')}
+			onClick={() => {
+				if (Router.pathname.match(/^\/$/)) {
+					props.setActivePage!('signIn');
+				} else {
+					Router.replace('/auth');
+				}
+			}}
 			className={`${props.className} ${styles.button} ${styles.login} ${
 				props.col && styles.col
 			}`}
