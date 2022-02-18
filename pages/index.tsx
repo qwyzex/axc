@@ -8,11 +8,12 @@ import {
 	FloatingAlert,
 } from '../components';
 import { SpinnerDotted } from 'spinners-react';
+import { ChangeLog } from '../components';
 
 import { auth, db } from '../firebase';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import {
 	collection,
@@ -26,7 +27,9 @@ import {
 } from 'firebase/firestore';
 
 export interface IndexTypes {
-	activePage: 'landing' | 'chatRoom' | 'signIn' | 'loading';
+	activePage: 'landing' | 'chatRoom' | 'signIn' | 'loading' | 'changelog';
+	setActivePage: Dispatch<SetStateAction<IndexTypes['activePage']>>;
+	userData: DocumentData;
 }
 
 const Index: NextPage = () => {
