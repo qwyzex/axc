@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import styles from '/styles/Landing.module.sass';
 import { AnchorButton, SVG, Loading, FloatingAlert } from '..';
-import { ChangelogDataprops } from './Changelog';
+import { ChangelogDataType } from '../../pages/api/changelog';
 import { Button } from '@mantine/core';
 import { IndexTypes } from 'pages';
 
@@ -107,10 +107,12 @@ const Landing = ({ setActivePage }: LandingProps) => {
 						{changelogData.length ? (
 							changelogData
 								.slice(0, 3)
-								.map((c: ChangelogDataprops) => (
+								.map((c: ChangelogDataType) => (
 									<li key={c.version}>
 										<Link href={`/changelog#${c.version}`}>
-											<a></a>
+											<a>
+												<span></span>
+											</a>
 										</Link>
 										<h3 key={c.version}>{c.version}</h3>
 										<p
