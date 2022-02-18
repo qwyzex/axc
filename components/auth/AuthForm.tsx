@@ -1,10 +1,12 @@
-import styles from '/styles/AuthForm.module.sass';
-import { IndexTypes } from '../../pages';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { ResetPasswordForm, SignInForm, SignUpForm } from '..';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useNotifications } from '@mantine/notifications';
+
+import styles from '/styles/AuthForm.module.sass';
+import { ResetPasswordForm, SignInForm, SignUpForm } from '..';
+import { auth } from '../../firebase';
+import { IndexTypes } from '../../pages';
+import { firerrMantine } from '../../functions';
 
 export interface AuthFormProps {
 	activePage: IndexTypes['activePage'];
@@ -102,7 +104,17 @@ export default function AuthForm(props: AuthFormProps) {
 					<button
 						onClick={() => {
 							const provider = new GoogleAuthProvider();
-							signInWithPopup(auth, provider);
+							signInWithPopup(auth, provider).catch((err) => {
+								notif.showNotification({
+									title: err.code
+										.replace(/^auth\//, '')
+										.replace(/\-/g, ' ')
+										.toUpperCase(),
+									message: firerrMantine(err.code),
+									autoClose: 5000,
+									color: 'red',
+								});
+							});
 						}}
 					>
 						CONTINUE WITH GOOGLE
