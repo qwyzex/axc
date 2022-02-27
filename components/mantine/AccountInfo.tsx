@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Divider } from '@mantine/core';
 import { DocumentData } from 'firebase/firestore';
 import Image from 'next/image';
@@ -5,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { Loading } from '..';
 import { ChatRoomProps } from '../main/ChatRoom';
 import ButtonSignOut from '../small/ButtonSignOut';
+import styles from '../../styles/AccountInfo.module.sass';
 
 const AccountInfo = (props: ChatRoomProps) => {
 	const [loading, setLoading] = useState<boolean>(true);
@@ -22,9 +24,9 @@ const AccountInfo = (props: ChatRoomProps) => {
 			{loading ? (
 				<Loading />
 			) : (
-				<section>
+				<section className={styles.container}>
 					<div>
-						<Image
+						<img
 							width={90}
 							height={90}
 							src={props.userData!.photoURL}
