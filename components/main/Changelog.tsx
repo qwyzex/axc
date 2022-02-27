@@ -33,49 +33,6 @@ const ChangeLog = () => {
 		fetchChangelog();
 	}, []);
 
-	const ChangeLogList = () => {
-		return (
-			<ul className={styles.wrapper}>
-				{changelogData ? (
-					changelogData
-						.map((c: ChangelogDataType) => (
-							<li
-								key={c.version}
-								id={c.version}
-								className={styles.changelogItem}
-							>
-								<h1>{c.version}</h1>
-								<p className={`cascade ${styles.date}`}>
-									{c.date}
-								</p>
-								<p className={styles.description}>
-									{c.description}
-								</p>
-								<Hr glow />
-								<details className={styles.featureWrapper}>
-									<summary>What{"'"}ve Changes?</summary>
-									<ul>
-										{c.feature.map((f: any) => (
-											<li key={f.name}>
-												<h5>{f.name}</h5>
-												<p>
-													{f.description != '' &&
-														f.description}
-												</p>
-											</li>
-										))}
-									</ul>
-								</details>
-							</li>
-						))
-						.reverse()
-				) : (
-					<Loading />
-				)}
-			</ul>
-		);
-	};
-
 	return (
 		<div>
 			<Head>
@@ -92,7 +49,53 @@ const ChangeLog = () => {
 					<SVG.TimeReverse />
 					<h1>Changelog</h1>
 				</div>
-				{changelogData ? <ChangeLogList /> : <SpinnerDiamond />}
+				{changelogData ? (
+					<ul className={styles.wrapper}>
+						{changelogData ? (
+							changelogData
+								.map((c: ChangelogDataType) => (
+									<li
+										key={c.version}
+										id={c.version}
+										className={styles.changelogItem}
+									>
+										<h1>{c.version}</h1>
+										<p className={`cascade ${styles.date}`}>
+											{c.date}
+										</p>
+										<p className={styles.description}>
+											{c.description}
+										</p>
+										<Hr glow />
+										<details
+											className={styles.featureWrapper}
+										>
+											<summary>
+												What{"'"}ve Changes?
+											</summary>
+											<ul>
+												{c.feature.map((f: any) => (
+													<li key={f.name}>
+														<h5>{f.name}</h5>
+														<p>
+															{f.description !=
+																'' &&
+																f.description}
+														</p>
+													</li>
+												))}
+											</ul>
+										</details>
+									</li>
+								))
+								.reverse()
+						) : (
+							<Loading />
+						)}
+					</ul>
+				) : (
+					<SpinnerDiamond />
+				)}
 			</main>
 		</div>
 	);
