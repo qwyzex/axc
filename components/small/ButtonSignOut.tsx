@@ -4,6 +4,7 @@ import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
 import { useModals } from '@mantine/modals';
 import Router from 'next/router';
+import { SVG } from '..';
 
 const ButtonSignOut = (props: ButtonsProps) => {
 	const modals = useModals();
@@ -33,12 +34,13 @@ const ButtonSignOut = (props: ButtonsProps) => {
 					<button type="submit" className="global err" autoFocus>
 						YES
 					</button>
-					<input
+					<button
 						type="button"
 						className="global"
 						onClick={() => modals.closeAll()}
-						value="CANCEL"
-					/>
+					>
+						CANCEL
+					</button>
 				</form>
 			),
 		});
@@ -50,6 +52,7 @@ const ButtonSignOut = (props: ButtonsProps) => {
 			className={`${props.className} ${styles.button} ${styles.logout}`}
 		>
 			{props.child}
+			<SVG.LogOut />
 			<p style={{ fontWeight: props.bold ? 'bold' : 'normal' }}>
 				{props.signOutText ? props.signOutText : 'Sign Out'}
 			</p>

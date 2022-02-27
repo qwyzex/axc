@@ -1,4 +1,5 @@
 import Router from 'next/router';
+import { SVG } from '..';
 import styles from '../../styles/Buttons.module.sass';
 import { ButtonsProps } from './Buttons';
 
@@ -17,6 +18,7 @@ const ButtonSignIn = (props: ButtonsProps) => {
 			}`}
 		>
 			{props.child}
+			<SVG.LogIn />
 			<p style={{ fontWeight: props.bold ? 'bold' : 'normal' }}>
 				{props.signInText ? props.signInText : 'Sign In'}
 			</p>
