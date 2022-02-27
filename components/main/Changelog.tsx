@@ -5,7 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '../../firebase';
 
-import styles from '../../styles/Changelog.module.sass';
+import styles from '../../styles/ChangelogComponent.module.sass';
 import { SVG, Header, Loading, Hr } from '..';
 
 import { NextPage } from 'next';
