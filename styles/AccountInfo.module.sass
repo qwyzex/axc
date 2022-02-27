@@ -9,52 +9,7 @@
     padding: 1rem
     border-radius: .3em
     z-index: 10
-
-    header 
-        display: flex
-        justify-content: space-between
-        gap: 1rem
-        margin-block-end: .7rem
-
-        button
-                border: none
-                outline: 2px solid transparent
-                border-radius: .3em
-                background-color: transparent
-
-                width: max-content
-                height: max-content
-                padding: .8em
-                transition: .2s ease
-
-                svg
-                    transition: .3s ease
-
-                &:active, &:focus
-                    outline: 2px solid #ff5858
-
-                &:hover
-                    background-color: var(--red)
-
-                    svg
-                        filter: invert(100%)
-            
-    > div 
-        display: flex
-        flex-direction: column
-        gap: .8rem
-
-        img
-            width: 5rem
-            height: 5rem
-            box-shadow: 0 5px 8px #24242450
-
-        > div
-            display: flex
-            align-items: flex-start
-            flex-direction: column
-            gap: 0
-            line-height: 1em
-
-        button
-            width: max-content
+  
+    * img
+        box-shadow: 0 5px 8px #24242450
+        border-radius: 50%
