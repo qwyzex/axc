@@ -5,6 +5,7 @@ export interface LoadingProps {
 	thickness?: number;
 	color?: string;
 	secColor?: string;
+	className?: string;
 }
 
 const Loading = (props: LoadingProps) => {
@@ -14,6 +15,7 @@ const Loading = (props: LoadingProps) => {
 			size={props.size ? props.size : 50}
 			color={props.color ? props.color : 'var(--blue)'}
 			secondaryColor={props.secColor ? props.secColor : '#e8e8e830'}
+			className={props.className}
 		/>
 	);
 };
