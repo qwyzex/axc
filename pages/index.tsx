@@ -25,6 +25,7 @@ import {
 	getDoc,
 	setDoc,
 } from 'firebase/firestore';
+import firerr from 'firerr';
 
 export interface IndexTypes {
 	activePage: 'landing' | 'chatRoom' | 'signIn' | 'loading' | 'changelog';
@@ -38,8 +39,13 @@ const Index: NextPage = () => {
 	const [activePage, setActivePage] =
 		useState<IndexTypes['activePage']>('loading');
 	const [globalAppError, setGlobalAppError] = useState('');
+	const [transitioningPage, setTransitioningPage] = useState(false);
 
 	const [userData, setUserData] = useState<DocumentData | null>(null);
+
+	useEffect(() => {
+		setTransitioningPage(true);
+	}, [activePage]);
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
@@ -55,7 +61,6 @@ const Index: NextPage = () => {
 					if (docSnap.exists()) {
 						setUserData(docSnap.data());
 						if (userData !== null) {
-							// alert(userData.uid + ' -- ' + user.uid);
 							if (userData.uid !== user.uid) {
 								signOut(auth);
 								setGlobalAppError(
@@ -76,11 +81,15 @@ const Index: NextPage = () => {
 								? user.photoURL
 								: '/favicon.ico',
 						}).then(() => {
-							getUserData();
-						});
+							getUserData().catch(err => {
+								firerr(err.code, setGlobalAppError)
+							})
+						})
 					}
 				};
-				getUserData();
+				getUserData().catch((err) => {
+					firerr(err.code, setGlobalAppError);
+				});
 			} else {
 				setActivePage('landing');
 				setFinishLoading(true);
@@ -105,17 +114,19 @@ const Index: NextPage = () => {
 			>
 				{activePage === 'landing' ? (
 					<Landing setActivePage={setActivePage} />
-				) : activePage === 'chatRoom' ? (
-					<ChatRoom
-						setActivePage={setActivePage}
-						userData={userData}
-					/>
 				) : activePage === 'signIn' ? (
 					<AuthForm
 						activePage={activePage}
 						setActivePage={setActivePage}
 					/>
-				) : null}
+				) : (
+					activePage === 'chatRoom' && (
+						<ChatRoom
+							setActivePage={setActivePage}
+							userData={userData}
+						/>
+					)
+				)}
 				<SpinnerDotted
 					color="#ff003c"
 					thickness={150}

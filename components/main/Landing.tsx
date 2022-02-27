@@ -1,4 +1,11 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+	CSSProperties,
+	Dispatch,
+	SetStateAction,
+	StyleHTMLAttributes,
+	useEffect,
+	useState,
+} from 'react';
 import Link from 'next/link';
 
 import styles from '/styles/Landing.module.sass';
@@ -9,9 +16,10 @@ import { IndexTypes } from 'pages';
 
 export interface LandingProps {
 	setActivePage: Dispatch<SetStateAction<IndexTypes['activePage']>>;
+	landingStyle?: CSSProperties;
 }
 
-const Landing = ({ setActivePage }: LandingProps) => {
+const Landing = ({ setActivePage, landingStyle }: LandingProps) => {
 	const [changelogData, setChangelogdata] = useState([]);
 	const [landingError, setLandingError] = useState('');
 
@@ -30,7 +38,7 @@ const Landing = ({ setActivePage }: LandingProps) => {
 	return (
 		<>
 			<FloatingAlert message={landingError} level={'warn'} />
-			<div className={`landing ${styles.container}`}>
+			<div className={`landing ${styles.container}`} style={landingStyle}>
 				<main>
 					<header className={styles.header}>
 						<h1 className={styles.title}>AXC</h1>

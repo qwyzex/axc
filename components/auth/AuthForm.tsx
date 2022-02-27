@@ -1,5 +1,11 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+	CSSProperties,
+	Dispatch,
+	SetStateAction,
+	useEffect,
+	useState,
+} from 'react';
 import { useNotifications } from '@mantine/notifications';
 
 import styles from '/styles/AuthForm.module.sass';
@@ -11,6 +17,7 @@ import { firerrMantine } from '../../functions';
 export interface AuthFormProps {
 	activePage: IndexTypes['activePage'];
 	setActivePage: Dispatch<SetStateAction<IndexTypes['activePage']>>;
+	authFormStyle?: CSSProperties;
 }
 
 export default function AuthForm(props: AuthFormProps) {
@@ -25,7 +32,7 @@ export default function AuthForm(props: AuthFormProps) {
 	}, [props.activePage]);
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.container} style={props.authFormStyle}>
 			<header className={styles.header}>
 				<button
 					type="button"
