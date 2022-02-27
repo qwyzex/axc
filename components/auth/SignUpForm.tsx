@@ -46,10 +46,11 @@ const SignUpForm = () => {
 	return (
 		<div>
 			<h1>SIGN UP</h1>
-			<form onSubmit={signUp}>
+			<form onSubmit={signUp} autoComplete={'off'}>
 				<div>
 					<label>EMAIL</label>
 					<input
+						autoComplete="nope"
 						disabled={loading ? true : false}
 						type="email"
 						value={formValueEmail}
@@ -60,6 +61,7 @@ const SignUpForm = () => {
 				<div>
 					<label>PASSWORD</label>
 					<input
+						autoComplete="new-password"
 						disabled={loading ? true : false}
 						type="password"
 						value={formValuePassword}
