@@ -4,10 +4,10 @@ import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '../../firebase';
-import styles from '/styles/Changelog.module.sass';
 
+import styles from '../../styles/Changelog.module.sass';
 import { SVG, Header, Loading, Hr } from '..';
-import { SpinnerDiamond } from 'spinners-react';
+
 import { NextPage } from 'next';
 import { getUserData } from '../../functions';
 import { DocumentData } from 'firebase/firestore';
@@ -49,53 +49,54 @@ const ChangeLog = () => {
 					<SVG.TimeReverse />
 					<h1>Changelog</h1>
 				</div>
-				{changelogData ? (
+				{changelogData && (
 					<ul className={styles.wrapper}>
-						{changelogData ? (
-							changelogData
-								.map((c: ChangelogDataType) => (
-									<li
-										key={c.version}
-										id={c.version}
-										className={styles.changelogItem}
-									>
-										<h1>{c.version}</h1>
-										<p className={`cascade ${styles.date}`}>
-											{c.date}
-										</p>
-										<p className={styles.description}>
-											{c.description}
-										</p>
-										<Hr glow />
-										<details
-											className={styles.featureWrapper}
-										>
-											<summary>
-												What{"'"}ve Changes?
-											</summary>
-											<ul>
-												{c.feature.map((f: any) => (
-													<li key={f.name}>
-														<h5>{f.name}</h5>
-														<p>
-															{f.description !=
-																'' &&
-																f.description}
-														</p>
-													</li>
-												))}
-											</ul>
-										</details>
-									</li>
-								))
-								.reverse()
-						) : (
-							<Loading />
-						)}
+						{changelogData
+							.map((c: ChangelogDataType) => (
+								<li
+									key={c.version}
+									id={c.version}
+									className={styles.changelogItem}
+								>
+									<h1>{c.version}</h1>
+									<p className={`cascade ${styles.date}`}>
+										{c.date}
+									</p>
+									<p className={styles.description}>
+										{c.description}
+									</p>
+									{c.feature && (
+										<>
+											<Hr glow />
+											<details
+												className={
+													styles.featureWrapper
+												}
+											>
+												<summary>
+													What{"'"}ve Changes?
+												</summary>
+												<ul>
+													{c.feature.map((f: any) => (
+														<li key={f.name}>
+															<h5>{f.name}</h5>
+															<p>
+																{f.description !=
+																	'' &&
+																	f.description}
+															</p>
+														</li>
+													))}
+												</ul>
+											</details>
+										</>
+									)}
+								</li>
+							))
+							.reverse()}
 					</ul>
-				) : (
-					<SpinnerDiamond />
 				)}
+				<Loading className={changelogData ? styles.out : ''} />
 			</main>
 		</div>
 	);
