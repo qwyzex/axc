@@ -32,13 +32,24 @@ button
         border-radius: .3em
         font-weight: 600
 
-        background-color: $inf
+        background-color: transparent
         border: none
         color: #ffffff
         transition: .3s ease
 
         &.fullWidth
             width: 100%
+
+        &:not(.err, .inf, .warn, .succ)
+            background-color: transparent
+            color: #202020
+            outline: 1.3px solid #00000000
+            &:hover
+                background-color: transparent
+                outline: 1.3px solid #202020
+            &:active
+                background-color: #eeeeee
+                box-shadow: 0 0 0 #00000000
 
         &.err
             background-color: $err
