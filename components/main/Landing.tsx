@@ -1,18 +1,25 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+	CSSProperties,
+	Dispatch,
+	SetStateAction,
+	StyleHTMLAttributes,
+	useEffect,
+	useState,
+} from 'react';
 import Link from 'next/link';
 
-import styles from '../styles/Landing.module.sass';
-import AnchorButton from './AnchorButton';
-import { SVGTimeReverse } from './Svg';
-import { ChangelogDataprops } from './Changelog';
-import Loading from './Loading';
-import FloatingAlert from './FloatingAlert';
+import styles from '/styles/Landing.module.sass';
+import { AnchorButton, SVG, Loading, FloatingAlert } from '..';
+import { ChangelogDataType } from '../../pages/api/changelog';
+import { Button } from '@mantine/core';
+import { IndexTypes } from 'pages';
 
 export interface LandingProps {
-	setActivePage: Dispatch<SetStateAction<string>>;
+	setActivePage: Dispatch<SetStateAction<IndexTypes['activePage']>>;
+	landingStyle?: CSSProperties;
 }
 
-const Landing = ({ setActivePage }: LandingProps) => {
+const Landing = ({ setActivePage, landingStyle }: LandingProps) => {
 	const [changelogData, setChangelogdata] = useState([]);
 	const [landingError, setLandingError] = useState('');
 
@@ -31,7 +38,7 @@ const Landing = ({ setActivePage }: LandingProps) => {
 	return (
 		<>
 			<FloatingAlert message={landingError} level={'warn'} />
-			<div className={`landing ${styles.container}`}>
+			<div className={`landing ${styles.container}`} style={landingStyle}>
 				<main>
 					<header className={styles.header}>
 						<h1 className={styles.title}>AXC</h1>
@@ -66,55 +73,54 @@ const Landing = ({ setActivePage }: LandingProps) => {
 							</p>
 						</article>
 						<div className={styles.buttonsWrapper}>
-							<button onClick={() => setActivePage('signin')}>
-								SIGN IN NOW
+							<button
+								className="global inf"
+								onClick={() => setActivePage('signIn')}
+							>
+								SIGN IN NOW {' >>'}
 							</button>
-							{/* <Buttons
-								signInText="SIGN IN NOW"
-								setErrors={setLandingError}
-								setConfirmationStateRef={() => {}}
-								confirmationStateRef={false}
-								bold
-								col
-							/> */}
 							<AnchorButton
 								to="https://github.com/qwyzex/axc"
 								newtab
-								text="Source Code"
 								color="260"
 								dark
 								invertClick
 								bold
 								thickness={4}
 								shadowHover
-							/>
+							>
+								Source Code
+							</AnchorButton>
 							<AnchorButton
 								to="https://twitter.com/qwyzex"
 								newtab
-								text="Follow me on Twitter"
 								color="200"
 								dark
 								invertClick
 								bold
 								thickness={4}
 								shadowHover
-							/>
+							>
+								Follow me on Twitter
+							</AnchorButton>
 						</div>
 					</div>
 				</main>
 				<aside className={styles.changeLogContainer}>
 					<div>
-						<SVGTimeReverse />
+						<SVG.TimeReverse />
 						<h2>CHANGELOG</h2>
 					</div>
 					<ul>
 						{changelogData.length ? (
 							changelogData
 								.slice(0, 3)
-								.map((c: ChangelogDataprops) => (
+								.map((c: ChangelogDataType) => (
 									<li key={c.version}>
 										<Link href={`/changelog#${c.version}`}>
-											<a></a>
+											<a>
+												<span></span>
+											</a>
 										</Link>
 										<h3 key={c.version}>{c.version}</h3>
 										<p

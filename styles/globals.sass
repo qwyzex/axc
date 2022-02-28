@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap')
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap')
+@import ./Vars
 
 *
     padding: 0
@@ -23,6 +24,63 @@ body
 
 button
     cursor: pointer
+    &:focus
+        backgorund: red !important
+
+    &.global
+        padding: .5rem 1rem
+        border-radius: .3em
+        font-weight: 600
+
+        background-color: transparent
+        border: none
+        color: #ffffff
+        transition: .3s ease
+
+        &.fullWidth
+            width: 100%
+
+        &:not(.err, .inf, .warn, .succ)
+            background-color: transparent
+            color: #202020
+            outline: 1.3px solid #00000000
+            &:hover
+                background-color: transparent
+                outline: 1.3px solid #202020
+            &:active
+                background-color: #eeeeee
+                box-shadow: 0 0 0 #00000000
+
+        &.err
+            background-color: $err
+            &:hover
+                background-color: lighten($err, 4%)
+            &:active
+                box-shadow: 0 0 .5rem $err
+        &.inf
+            background-color: $inf
+            &:hover
+                background-color: lighten($inf, 4%)
+            &:active
+                box-shadow: 0 0 .5rem $inf
+        &.warn
+            background-color: $wrn
+            &:hover
+                background-color: lighten($wrn, 4%)
+            &:active
+                box-shadow: 0 0 .5rem $wrn
+        &.succ
+            background-color: $msg
+            &:hover
+                background-color: lighten($msg, 4%)
+            &:active
+                box-shadow: 0 0 .5rem $msg
+
+        // global
+        &:hover
+            background-color: lighten($inf, 4%)
+        &:active
+            box-shadow: 0 0 .6rem $inf
 
 code
     font-family: var(--font-mono)
@@ -63,17 +121,17 @@ body
     position: relative
     overflow-x: hidden
 
-    #__next // id="_next"
+    #__next // id="__next"
         min-height: 100vh
-
-        > .mainRoot
-            &.displayLanding
-                min-height: calc( 100vh - 5rem )
-                align-items: center
 
 .mainRoot
     transition: .3s ease
     z-index: 3
+    min-height: calc( 100vh - 5rem )
+
+    display: flex
+    justify-content: center
+    align-items: center
 
     background-image: #ff0000
     background-image: radial-gradient(at 40% 20%, hsla(28,100%,74%,1) 0, transparent 50%), radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0, transparent 50%), radial-gradient(at 0% 50%, hsla(355,85%,93%,1) 0, transparent 50%), radial-gradient(at 80% 50%, hsla(340,100%,76%,1) 0, transparent 50%), radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0, transparent 50%), radial-gradient(at 80% 100%, hsla(242,100%,70%,1) 0, transparent 50%), radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0, transparent 50%)

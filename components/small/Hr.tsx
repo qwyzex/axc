@@ -1,4 +1,4 @@
-import styles from '../styles/Hr.module.sass';
+import styles from '/styles/Hr.module.sass';
 
 interface HrProps {
 	glow?: boolean;

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 interface FeatureType {
-	name?: string;
+	name: string;
 	description?: string;
 }
 
@@ -9,7 +9,7 @@ export interface ChangelogDataType {
 	version: string;
 	date: string;
 	description: string;
-	feature: FeatureType[];
+	feature?: FeatureType[];
 }
 
 const data: ChangelogDataType[] = [
@@ -43,7 +43,35 @@ const data: ChangelogDataType[] = [
 			},
 			{
 				name: 'Custom Confirmation Block',
-				description: '',
+			},
+		],
+	},
+	{
+		version: '2.0.3',
+		date: 'February 27th 2022',
+		description: 'Big Update! Mantine, Email and Password SignIn',
+		feature: [
+			{
+				name: 'Email and Password Sign In',
+				description: 'User can sign in with email and password',
+			},
+			{
+				name: 'Password Reset',
+				description:
+					'User can reset their password (only for email sign in)',
+			},
+			{
+				name: 'Mantine React Component Library',
+				description:
+					'Use Mantine, A React Component Library. Specifically, using their notification, modals and some core APIs',
+			},
+			{
+				name: 'Improved Landing Page UI',
+				description:
+					"Improved the UI of the landing page, it's now more user friendly. Change the landing page background to rainbow gradient mesh",
+			},
+			{
+				name: 'Fixes bugs and some tweaks',
 			},
 		],
 	},

@@ -1,9 +1,9 @@
-import styles from '../styles/AnchorButton.module.sass';
+import styles from '/styles/AnchorButton.module.sass';
 
 export interface AnchorButtonProps {
 	// functionallity
 	to: string;
-	text: string;
+	children: string;
 	newtab?: boolean;
 
 	// styles
@@ -20,6 +20,7 @@ export interface AnchorButtonProps {
 	shadowClick?: boolean;
 	italic?: boolean;
 	bold?: boolean;
+	fullWitdh?: boolean;
 }
 
 const AnchorButton = (props: AnchorButtonProps) => {
@@ -38,6 +39,7 @@ const AnchorButton = (props: AnchorButtonProps) => {
                 ${props.shadow && styles.shadow}
                 ${props.shadowHover && styles.shadowHover}
                 ${props.shadowClick && styles.shadowClick}
+                ${props.fullWitdh && styles.fullWitdh}
             `}
 			// prettier-ignore
 			style={{
@@ -57,7 +59,7 @@ const AnchorButton = (props: AnchorButtonProps) => {
                 fontWeight: props.bold ? "bold" : "normal",
             }}
 		>
-			{props.text}
+			{props.children}
 		</a>
 	);
 };

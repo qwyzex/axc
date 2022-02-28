@@ -1,13 +1,12 @@
-import styles from '../styles/AppInfo.module.sass';
-import CloseButton from './CloseButton';
-import Overlay from './Overlay';
+import styles from '/styles/AppInfo.module.sass';
+import { CloseButton, Overlay } from '..';
 
 const AppInfo = ({ close }: any) => {
 	return (
 		<>
-			<Overlay blur={true} />
+			{/* <Overlay blur={true} /> */}
 			<div className={`popup ${styles.container}`}>
-				<header className={styles.header}>
+				{/* <header className={styles.header}>
 					<div>
 						<h1>AXC</h1>
 						<p className="cascade comment">Attemp-X CHAT APP</p>
@@ -15,7 +14,7 @@ const AppInfo = ({ close }: any) => {
 					<div>
 						<CloseButton event={close} />
 					</div>
-				</header>
+				</header> */}
 				<article className={styles.body}>
 					<p>
 						Veniam aliquip incididunt est tempor excepteur

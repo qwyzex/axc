@@ -1,16 +1,20 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Header from '../components/Header';
-import Landing from '../components/Landing';
-import ChatRoom from '../components/ChatRoom';
+import {
+	Header,
+	Landing,
+	ChatRoom,
+	AuthForm,
+	FloatingAlert,
+} from '../components';
 import { SpinnerDotted } from 'spinners-react';
+import { ChangeLog } from '../components';
 
 import { auth, db } from '../firebase';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import AuthForm from '../components/AuthForm';
 import {
 	collection,
 	CollectionReference,
@@ -21,15 +25,27 @@ import {
 	getDoc,
 	setDoc,
 } from 'firebase/firestore';
-import FloatingAlert from '../components/FloatingAlert';
+import firerr from 'firerr';
+
+export interface IndexTypes {
+	activePage: 'landing' | 'chatRoom' | 'signIn' | 'loading' | 'changelog';
+	setActivePage: Dispatch<SetStateAction<IndexTypes['activePage']>>;
+	userData: DocumentData;
+}
 
 const Index: NextPage = () => {
-	const [user] = useAuthState(auth);
+	const [userHook] = useAuthState(auth);
 	const [finishLoading, setFinishLoading] = useState(false);
-	const [activePage, setActivePage] = useState('loading');
+	const [activePage, setActivePage] =
+		useState<IndexTypes['activePage']>('loading');
 	const [globalAppError, setGlobalAppError] = useState('');
+	const [transitioningPage, setTransitioningPage] = useState(false);
 
-	const [userData, setUserData] = useState<DocumentData>({});
+	const [userData, setUserData] = useState<DocumentData | null>(null);
+
+	useEffect(() => {
+		setTransitioningPage(true);
+	}, [activePage]);
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
@@ -44,14 +60,17 @@ const Index: NextPage = () => {
 
 					if (docSnap.exists()) {
 						setUserData(docSnap.data());
-						if (userData.uid !== user.uid) {
-							signOut(auth);
-							setGlobalAppError(
-								'User data does not match user. User already exist with different credentials/provider!'
-							);
+						if (userData !== null) {
+							if (userData.uid !== user.uid) {
+								signOut(auth);
+								setGlobalAppError(
+									'User data does not match user. User already exist with different credentials/provider!'
+								);
+							} else {
+								setFinishLoading(true);
+								setActivePage('chatRoom');
+							}
 						}
-						setFinishLoading(true);
-						setActivePage('chatroom');
 					} else {
 						// prettier-ignore
 						await setDoc(doc(usersRef, user.uid), {
@@ -62,17 +81,21 @@ const Index: NextPage = () => {
 								? user.photoURL
 								: '/favicon.ico',
 						}).then(() => {
-							getUserData();
-						});
+							getUserData().catch(err => {
+								firerr(err.code, setGlobalAppError)
+							})
+						})
 					}
 				};
-				getUserData();
+				getUserData().catch((err) => {
+					firerr(err.code, setGlobalAppError);
+				});
 			} else {
 				setActivePage('landing');
 				setFinishLoading(true);
 			}
 		});
-	}, [user, userData]);
+	}, [userHook, userData]);
 
 	return (
 		<>
@@ -83,7 +106,7 @@ const Index: NextPage = () => {
 				<link rel="apple-touch-icon" href="/favicon.ico"></link>
 			</Head>
 			<FloatingAlert message={globalAppError} level="error" />
-			<Header userData={userData} />
+			<Header setActivePage={setActivePage} userData={userData} />
 			<main
 				className={`mainRoot ${
 					activePage === 'landing' ? 'landingPage' : 'chatroomPage'
@@ -91,11 +114,19 @@ const Index: NextPage = () => {
 			>
 				{activePage === 'landing' ? (
 					<Landing setActivePage={setActivePage} />
-				) : activePage === 'chatroom' ? (
-					<ChatRoom userData={userData} />
-				) : activePage === 'signin' ? (
-					<AuthForm />
-				) : null}
+				) : activePage === 'signIn' ? (
+					<AuthForm
+						activePage={activePage}
+						setActivePage={setActivePage}
+					/>
+				) : (
+					activePage === 'chatRoom' && (
+						<ChatRoom
+							setActivePage={setActivePage}
+							userData={userData}
+						/>
+					)
+				)}
 				<SpinnerDotted
 					color="#ff003c"
 					thickness={150}

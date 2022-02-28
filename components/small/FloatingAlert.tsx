@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import styles from '../styles/FloatingAlert.module.sass';
+import styles from '/styles/FloatingAlert.module.sass';
 
 export interface FloatingAlertProps {
-	level?: 'warn' | 'error' | 'success';
+	level?: 'warn' | 'error' | 'success' | 'message';
 	message: string;
 }
 

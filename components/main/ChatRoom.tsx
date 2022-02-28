@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { db, auth } from '../firebase';
+import { db, auth } from '../../firebase';
 import {
 	collection,
 	orderBy,
@@ -14,19 +14,22 @@ import {
 	Query,
 } from 'firebase/firestore';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Data } from 'react-firebase-hooks/firestore/dist/firestore/types';
 import firerr from 'firerr';
 
-import styles from '../styles/ChatRoom.module.sass';
-import Confirmation from './Confirmation';
-import FloatingAlert from './FloatingAlert';
+import styles from '/styles/ChatRoom.module.sass';
+import { Confirmation, FloatingAlert } from '..';
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { IndexTypes } from 'pages';
 
 export interface ChatRoomProps {
-	userData: DocumentData;
+	userData: DocumentData | null;
+	setActivePage?: IndexTypes['setActivePage'];
 }
 
-const ChatRoom = ({ userData }: ChatRoomProps) => {
+const ChatRoom = ({ userData, setActivePage }: ChatRoomProps) => {
 	const scrollDummy: any = useRef();
 	const [loading, setLoading] = useState(true);
 	const [chatError, setChatError] = useState('');
