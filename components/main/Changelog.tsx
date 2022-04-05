@@ -1,18 +1,16 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import { useState, useEffect, CSSProperties } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '../../firebase';
 
 import styles from '../../styles/ChangelogComponent.module.sass';
-import { SVG, Header, Loading, Hr } from '..';
+import { SVG, Loading, Hr } from '..';
 
-import { NextPage } from 'next';
-import { getUserData } from '../../functions';
-import { DocumentData } from 'firebase/firestore';
 import { IndexTypes } from 'pages';
 import { ChangelogDataType } from 'pages/api/changelog';
+import { useViewportSize } from '@mantine/hooks';
 
 export interface ChangeLogPageProps {
 	setActivePage: IndexTypes['setActivePage'];
@@ -23,6 +21,8 @@ const ChangeLog = () => {
 
 	const [changelogData, setChangelogData] = useState<ChangelogDataType[]>();
 
+	const window = useViewportSize();
+
 	useEffect(() => {
 		async function fetchChangelog() {
 			const res: Response = await fetch('/api/changelog');
@@ -32,6 +32,24 @@ const ChangeLog = () => {
 		}
 		fetchChangelog();
 	}, []);
+
+	interface CVS {
+		hide: CSSProperties;
+		show: CSSProperties;
+	}
+
+	const currentVersionStyle: CVS = {
+		hide: {
+			opacity: '0',
+			visibility: 'hidden',
+			transition: '.3s ease',
+		},
+		show: {
+			opacity: '1',
+			visibility: 'visible',
+			transition: '.3s ease',
+		},
+	};
 
 	return (
 		<div>
@@ -52,12 +70,40 @@ const ChangeLog = () => {
 				{changelogData && (
 					<ul className={styles.wrapper}>
 						{changelogData
-							.map((c: ChangelogDataType) => (
+							.map((c: ChangelogDataType, i: number) => (
 								<li
 									key={c.version}
 									id={c.version}
 									className={styles.changelogItem}
 								>
+									{changelogData.length - 1 == i && (
+										<>
+											<div
+												className={
+													styles.currentVersionIndicator
+												}
+												style={
+													window.width <= 400
+														? currentVersionStyle.show
+														: currentVersionStyle.hide
+												}
+											>
+												<SVG.Check />
+											</div>
+											<div
+												className={
+													styles.currentVersionIndicator
+												}
+												style={
+													window.width > 400
+														? currentVersionStyle.show
+														: currentVersionStyle.hide
+												}
+											>
+												{'CURRENT VERSION'}
+											</div>
+										</>
+									)}
 									<h1>{c.version}</h1>
 									<p className={`cascade ${styles.date}`}>
 										{c.date}

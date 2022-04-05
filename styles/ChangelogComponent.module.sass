@@ -52,20 +52,6 @@
         position: relative
         transition: .3s ease
 
-        &:first-of-type
-            &::after
-                content: 'CURRENT VERSION'
-                position: absolute
-                top: 10px
-                right: 10px
-
-                background-color: var(--green)
-                border-radius: .3em
-                padding: .2em .8em
-                box-shadow: 0 3px 6px #20202030
-                font-weight: 600
-                color: #ffffff
-
         &:target
             outline: 3px solid #000000
             // outline-offset: 4px
@@ -73,8 +59,27 @@
             box-shadow: 0 12px 24px #20202060
 
         > *
-            &:not(details)
+            &:not(details, p)
                 width: max-content
+
+        .currentVersionIndicator
+            position: absolute
+            top: 10px
+            right: 10px
+
+            display: flex
+            justify-content: center
+            align-items: center
+
+            background-color: var(--green)
+            border-radius: .3em
+            padding: .2em .8em
+            box-shadow: 0 3px 6px #20202030
+            font-weight: 600
+            color: #ffffff
+
+            svg
+                fill: #ffffff
 
         details
             summary
