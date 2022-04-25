@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useState, useEffect, CSSProperties } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import useChangelog from '../../hooks/useChangelog.ts';
 
 import { auth } from '../../firebase';
 
@@ -18,20 +19,9 @@ export interface ChangeLogPageProps {
 
 const ChangeLog = () => {
 	const [user] = useAuthState(auth);
-
-	const [changelogData, setChangelogData] = useState<ChangelogDataType[]>();
+	const changelogData = useChangelog();
 
 	const window = useViewportSize();
-
-	useEffect(() => {
-		async function fetchChangelog() {
-			const res: Response = await fetch('/api/changelog');
-			const data = await res.json();
-
-			setChangelogData(data);
-		}
-		fetchChangelog();
-	}, []);
 
 	interface CVS {
 		hide: CSSProperties;

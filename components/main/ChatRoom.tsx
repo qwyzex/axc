@@ -67,18 +67,6 @@ const ChatRoom = ({ userData, setActivePage }: ChatRoomProps) => {
 			});
 	}
 
-	const SubmitButton = () => {
-		return formValue === '' ? (
-			<button type="submit" className={styles.sendButton} disabled>
-				SEND
-			</button>
-		) : (
-			<button type="submit" className={styles.sendButton}>
-				SEND
-			</button>
-		);
-	};
-
 	useEffect(() => {
 		if (messages) {
 			setLoading(false);
@@ -121,7 +109,9 @@ const ChatRoom = ({ userData, setActivePage }: ChatRoomProps) => {
 						value={formValue}
 						placeholder="Insert your message here..."
 					/>
-					<SubmitButton />
+                    <button type="submit" classname={styles.sendbutton} disabled={formValue === '' || false}>
+                        SEND
+                    </button>
 				</form>
 			</div>
 		</>
