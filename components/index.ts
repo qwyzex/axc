@@ -12,7 +12,6 @@ import Landing from './main/Landing';
 import Header from './main/Header';
 import ChangeLog from './main/Changelog';
 import ChatRoom from './main/ChatRoom';
-import AppInfo from './main/AppInfo';
 
 // small
 import AnchorButton from './small/AnchorButton';
@@ -39,7 +38,6 @@ export {
 	Header,
 	ChangeLog,
 	ChatRoom,
-	AppInfo,
 	AnchorButton,
 	ButtonSignIn,
 	ButtonSignOut,

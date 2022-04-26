@@ -2,22 +2,13 @@
 import { useState } from 'react';
 import { auth } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { signOut } from 'firebase/auth';
 import Link from 'next/link';
 
-import {
-	AppInfo,
-	Confirmation,
-	SVG,
-	FloatingAlert,
-	ChatRoom,
-	AnchorButton,
-} from '..';
+import { SVG, FloatingAlert } from '..';
 import styles from '/styles/Header.module.sass';
 
 import { ChatRoomProps } from './ChatRoom';
 import { useModals } from '@mantine/modals';
-import { Anchor } from '@mantine/core';
 import ButtonSignOut from '../small/ButtonSignOut';
 import ButtonSignIn from '../small/ButtonSignIn';
 import AccountInfo from '../mantine/AccountInfo';
@@ -99,7 +90,7 @@ export default function Header({ userData, setActivePage }: ChatRoomProps) {
 									rel="noreferrer"
 								>
 									<SVG.Bug />
-									Bug
+									Bug Report
 								</a>
 							</li>
 							<li className={styles.listItem}>

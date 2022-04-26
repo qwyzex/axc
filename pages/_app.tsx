@@ -2,10 +2,9 @@ import '../styles/globals.sass';
 import type { AppProps } from 'next/app';
 
 import { ContextModalProps, ModalsProvider } from '@mantine/modals';
-import { Text, Button, MantineProvider, Divider } from '@mantine/core';
+import { Text, MantineProvider, Divider } from '@mantine/core';
 import { AnchorButton } from '../components';
 import { NotificationsProvider } from '@mantine/notifications';
-import AccountInfo from '~//mantine/AccountInfo';
 
 const appInfoModal = ({ context, id }: ContextModalProps) => (
 	<>

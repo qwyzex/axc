@@ -14,14 +14,12 @@ import {
 	Query,
 } from 'firebase/firestore';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Data } from 'react-firebase-hooks/firestore/dist/firestore/types';
 import firerr from 'firerr';
 
 import styles from '/styles/ChatRoom.module.sass';
 import { Confirmation, FloatingAlert } from '..';
-import { onAuthStateChanged, User } from 'firebase/auth';
 import { IndexTypes } from 'pages';
 
 export interface ChatRoomProps {
@@ -109,9 +107,13 @@ const ChatRoom = ({ userData, setActivePage }: ChatRoomProps) => {
 						value={formValue}
 						placeholder="Insert your message here..."
 					/>
-                    <button type="submit" classname={styles.sendbutton} disabled={formValue === '' || false}>
-                        SEND
-                    </button>
+					<button
+						type="submit"
+						className={styles.sendbutton}
+						disabled={formValue === '' || false}
+					>
+						SEND
+					</button>
 				</form>
 			</div>
 		</>

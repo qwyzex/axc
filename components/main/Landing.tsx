@@ -2,7 +2,6 @@ import {
 	CSSProperties,
 	Dispatch,
 	SetStateAction,
-	StyleHTMLAttributes,
 	useEffect,
 	useState,
 } from 'react';
@@ -11,7 +10,6 @@ import Link from 'next/link';
 import styles from '/styles/Landing.module.sass';
 import { AnchorButton, SVG, Loading, FloatingAlert } from '..';
 import { ChangelogDataType } from '../../pages/api/changelog';
-import { Button } from '@mantine/core';
 import { IndexTypes } from 'pages';
 
 export interface LandingProps {

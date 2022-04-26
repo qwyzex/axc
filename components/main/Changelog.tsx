@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useState, useEffect, CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import useChangelog from '../../hooks/useChangelog.ts';
+import useChangelog from '../../hooks/useChangelog';
 
 import { auth } from '../../firebase';
 
